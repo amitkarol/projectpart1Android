@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="register">Register</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="Register">Register</string>
+    <string name="login">login</string>
+    <string name="confirm_password">confirm password</string>
+    <string name="image_description" />
+    <string name="display_password">display password</string>
+    <string name="create_storng_password">create strong password\n</string>
+    <string name="password_requirements">in order to create strong password\nyou need to combine \nletters, numbers and symbols</string>
+    <string name="password_hint">password</string>
+    <string name="confirm_password_hint">confirm password</string>
+    <string name="show_password">show password</string>
+    <string name="next">next</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_username">username</string>
+    <string name="title_activity_password">password</string>
+    <string name="title_activity_passwords">passwords</string>
+    <string name="title_activity_displayname">Displayname</string>
+    <string name="title_activity_loginh">loginh</string>
+    <string name="title_activity_login">title_activity_login</string>
+    <string name="title_activity_homescreen">homescreen</string>
+
+</resources>
