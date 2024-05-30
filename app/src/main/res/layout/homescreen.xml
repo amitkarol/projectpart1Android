@@ -20,21 +20,13 @@
         android:layout_marginEnd="288dp"
         android:src="@drawable/youtube2" />
 
-    <Button
-        android:id="@+id/buttonPerson"
-        android:layout_width="46dp"
-        android:layout_height="38dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="22dp"
-        android:layout_marginEnd="25dp"
-        android:background="@drawable/person_button_svgrepo_com"
-        android:onClick="onPersonButtonClick" />
-
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
         tools:context=".MainActivity">
 
         <ImageView
@@ -47,17 +39,6 @@
             android:layout_toEndOf="@+id/imageView6"
             android:src="@drawable/home_filled_svgrepo_com" />
 
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="46dp"
-            android:layout_height="37dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="92dp"
-            android:src="@drawable/searching_tool_svgrepo_com"
-            android:onClick="onSearchIconClick" />
-
 
         <ImageView
             android:id="@+id/imageView6"
@@ -69,15 +50,27 @@
             android:layout_marginBottom="22dp"
             android:src="@drawable/lightning_1_svgrepo_com" />
 
-        <ImageView
-            android:id="@+id/imageView8"
+        <Button
+            android:id="@+id/buttonUpload"
             android:layout_width="62dp"
             android:layout_height="53dp"
             android:layout_alignBottom="@+id/imageView6"
             android:layout_marginStart="105dp"
             android:layout_marginBottom="-2dp"
             android:layout_toEndOf="@+id/imageView7"
-            android:src="@drawable/plus_circle_svgrepo_com" />
+            android:background="@drawable/plus_circle_svgrepo_com"
+            android:text="" />
+
+        <Button
+            android:id="@+id/buttonPerson"
+            android:layout_width="46dp"
+            android:layout_height="38dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="23dp"
+            android:background="@drawable/person_button_svgrepo_com"
+            android:onClick="onPersonButtonClick" />
 
         <ImageView
             android:id="@+id/imageView9"
@@ -86,19 +79,26 @@
             android:layout_alignBottom="@+id/imageView6"
             android:layout_marginStart="17dp"
             android:layout_marginBottom="-1dp"
-            android:layout_toEndOf="@+id/imageView8"
+            android:layout_toEndOf="@+id/buttonUpload"
             android:src="@drawable/play1_svgrepo_com" />
 
-        <ImageView
-            android:id="@+id/imageView10"
-            android:layout_width="50dp"
-            android:layout_height="43dp"
+        <Switch
+            android:id="@+id/switchMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="25dp"
-            android:layout_marginBottom="19dp"
-            android:src="@drawable/person_button_svgrepo_com" />
+            android:layout_marginEnd="276dp"
+            android:layout_marginBottom="655dp"
+            android:text="Switch mode" />
 
+        <SearchView
+            android:layout_width="151dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="-82dp" />
     </RelativeLayout>
     <!-- Video Information -->
 

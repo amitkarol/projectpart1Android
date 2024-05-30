@@ -7,17 +7,17 @@ public class user implements Serializable {
     private String lastName;
     private String email;
     private String password;
-    private String Displayname;
-
+    private String displayName;
+    private String photoUri;
 
     // Constructor
-    public user(String firstName, String lastName, String email, String password, String displayname) {
+    public user(String firstName, String lastName, String email, String password, String displayName, String photoUri) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.Displayname = displayname;
-
+        this.displayName = displayName;
+        this.photoUri = photoUri;
     }
 
     // Getters and setters
@@ -53,15 +53,21 @@ public class user implements Serializable {
         this.password = password;
     }
 
-    public String getDisplayname() {
-        return Displayname;
+    public String getDisplayName() {
+        return displayName;
     }
 
-    public void setDisplayname(String displayname) {
-        Displayname = displayname;
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
+    public String getPhotoUri() {
+        return photoUri;
+    }
 
+    public void setPhotoUri(String photoUri) {
+        this.photoUri = photoUri;
+    }
 
     // toString method for printing user details
     @Override
@@ -71,7 +77,8 @@ public class user implements Serializable {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", Displayname='" + Displayname + '\'' +
+                ", displayName='" + displayName + '\'' +
+                ", photoUri='" + photoUri + '\'' +
                 '}';
     }
 }

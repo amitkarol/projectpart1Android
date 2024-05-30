@@ -74,17 +74,39 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:text="Upload Photo"
-        android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextText2" />
 
     <Button
+        android:id="@+id/buttonTakePhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Take Photo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonUploadPhoto" />
+
+    <ImageView
+        android:id="@+id/imageViewPhoto"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonTakePhoto" />
+
+    <Button
         android:id="@+id/button3"
         android:layout_width="152dp"
         android:layout_height="53dp"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="44dp"
         android:background="#EC0303"
         android:padding="16dp"
         android:text="next"
@@ -92,5 +114,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonUploadPhoto" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPhoto" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

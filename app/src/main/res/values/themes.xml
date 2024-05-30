@@ -2,4 +2,12 @@
 <resources>
 
     <style name="Theme.MyApplication" parent="android:Theme.Material.Light.NoActionBar" />
+    <!-- Light mode theme -->
+    <style name="AppTheme.Light" parent="android:Theme.Material.Light.NoActionBar"></style>
+
+    <!-- Dark mode theme -->
+    <style name="AppTheme.Dark" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/darkBackground</item>
+    </style>
 </resources>
+

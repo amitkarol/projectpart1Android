@@ -29,6 +29,8 @@ public class Username extends Activity {  // Ensure this class is public
             } else {
                 // Proceed to next screen
                 Intent intent = new Intent(this, password.class);
+                intent.putExtra("firstName" ,  getIntent().getStringExtra("firstName"));
+                intent.putExtra("lastName" , getIntent().getStringExtra("lastName"));
                 intent.putExtra("username", username);
                 startActivity(intent);
             }

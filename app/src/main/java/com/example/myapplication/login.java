@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -36,11 +37,9 @@ public class login extends Activity {
             // Validate the username and password
             boolean userFound = UserManager.getInstance().validateUser(username, password);
 
-
             if (userFound) {
-                // Open the home screen activity
-                Intent intent = new Intent(this, homescreen.class);
-                startActivity(intent);
+                Intent intenthomescreen = new Intent(login.this, homescreen.class);
+                startActivity(intenthomescreen);
             } else {
                 // Display error message
                 Toast.makeText(this, "User does not exist", Toast.LENGTH_SHORT).show();

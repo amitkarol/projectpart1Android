@@ -2,9 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myapplication">
 
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -17,8 +20,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".homescreen"
+            android:name=".uploadphoto"
             android:exported="false"
+            android:label="@string/title_activity_uploadphoto"
+            android:theme="@style/Theme.MyApplication" />
+        <activity
+            android:name=".logout"
+            android:exported="false"
+            android:label="@string/title_activity_logout"
+            android:theme="@style/Theme.MyApplication" />
+        <activity
+            android:name=".homescreen"
+            android:exported="true"
             android:label="@string/title_activity_homescreen"
             android:theme="@style/Theme.MyApplication" />
         <activity
@@ -52,6 +65,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.myapplication.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>
+
