@@ -2,9 +2,11 @@ package com.example.myapplication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class logout extends Activity {
     @Override
@@ -18,17 +20,23 @@ public class logout extends Activity {
         String lastName = intent.getStringExtra("lastName");
         String username = intent.getStringExtra("username");
         String displayName = intent.getStringExtra("displayName");
+        String photoUri = intent.getStringExtra("photoUri"); // Retrieve the photo URI
 
-        // Get references to the EditText fields
-        EditText editTextFirstLastName = findViewById(R.id.editTextText5);
-        EditText editTextUsername = findViewById(R.id.editTextText6);
-        EditText editTextDisplayName = findViewById(R.id.editTextText7);
+        // Get references to the TextView fields
+        TextView textViewFirstLastName = findViewById(R.id.textView5);
+        TextView textViewUsername = findViewById(R.id.textView6);
+        TextView textViewDisplayName = findViewById(R.id.textView7);
+        ImageView imageViewPhoto = findViewById(R.id.imageView4); // Reference to the ImageView
 
-        // Set the user details in the EditText fields
-        editTextFirstLastName.setText(firstName + " " + lastName);
-        editTextUsername.setText(username);
-        editTextDisplayName.setText(displayName);
+        // Set the user details in the TextView fields
+        textViewFirstLastName.setText(firstName + " " + lastName);
+        textViewUsername.setText(username);
+        textViewDisplayName.setText(displayName);
 
+        // Set the photo URI to the ImageView
+        if (photoUri != null) {
+            imageViewPhoto.setImageURI(Uri.parse(photoUri));
+        }
 
         // Get reference to the Logout button
         Button logoutButton = findViewById(R.id.buttonLogout);

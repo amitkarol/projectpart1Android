@@ -5,53 +5,95 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/editTextText9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Name"
-        tools:layout_editor_absoluteX="168dp"
-        tools:layout_editor_absoluteY="284dp" />
-
-    <EditText
-        android:id="@+id/editTextText10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Name"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="168dp" />
-
-    <ImageButton
-        android:id="@+id/imageButton16"
-        android:layout_width="66dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="16dp"
-        android:src="@drawable/like_svgrepo_com__2_"
+    <!-- VideoView -->
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="391dp"
+        android:layout_height="290dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="446dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/imageButton17"
-        android:layout_width="64dp"
-        android:layout_height="62dp"
-        android:src="@drawable/share_2_svgrepo_com"
-        tools:layout_editor_absoluteX="104dp"
-        tools:layout_editor_absoluteY="446dp" />
-
-    <EditText
-        android:id="@+id/editTextText11"
+    <!-- Title TextView -->
+    <TextView
+        android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:ems="10"
-        android:inputType="text"
+        android:text="Title"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/videoView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Description TextView -->
+    <TextView
+        android:id="@+id/descriptionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Channel name TextView -->
+    <TextView
+        android:id="@+id/channelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Channel Name"
+        app:layout_constraintTop_toBottomOf="@id/descriptionTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Like Button -->
+    <Button
+        android:id="@+id/likeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Like"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/channelTextView"
+        android:layout_marginTop="16dp"
+        android:onClick="onLikeButtonClick"/>
+
+    <!-- Share Button -->
+    <Button
+        android:id="@+id/shareButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Share"
+        app:layout_constraintStart_toEndOf="@id/likeButton"
+        app:layout_constraintTop_toBottomOf="@id/channelTextView"
+        android:layout_marginTop="16dp"
+        android:onClick="onShareButtonClick"/>
+
+    <!-- Comments Button -->
+    <Button
+        android:id="@+id/commentsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Comments"
+        app:layout_constraintStart_toEndOf="@id/shareButton"
+        app:layout_constraintTop_toBottomOf="@id/channelTextView"
+        android:layout_marginTop="16dp"
+        android:onClick="onCommentsButtonClick"/>
+
+    <!-- FrameLayout for CommentsFragment -->
+    <FrameLayout
+        android:id="@+id/commentsContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/commentsButton"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="514dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

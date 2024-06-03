@@ -1,105 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".homescreen">
 
     <!-- Top Bar -->
 
-    <!-- Video Thumbnail -->
+    <!-- Search View -->
 
+    <!-- SwipeRefreshLayout and ViewPager2 for swiping videos -->
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="183dp" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/searchView"
+        android:layout_above="@id/bottomNavigation"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewVideos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:clipToPadding="false"
+            android:scrollbars="vertical" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <!-- YouTube Photo -->
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imageViewYouTube"
         android:layout_width="92dp"
         android:layout_height="36dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="288dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="16dp"
         android:src="@drawable/youtube2" />
 
+    <!-- Thumbnail Image View -->
+
+    <!-- Bottom Navigation -->
+
     <RelativeLayout
+        android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="0dp"
-        tools:context=".MainActivity">
+        android:background="@android:color/white"
+        android:padding="8dp">
 
         <ImageView
-            android:id="@+id/imageView7"
-            android:layout_width="50dp"
-            android:layout_height="43dp"
-            android:layout_alignBottom="@+id/imageView6"
-            android:layout_marginStart="-129dp"
-            android:layout_marginBottom="-2dp"
-            android:layout_toEndOf="@+id/imageView6"
-            android:src="@drawable/home_filled_svgrepo_com" />
-
-
-        <ImageView
-            android:id="@+id/imageView6"
+            android:id="@+id/imageViewHome"
             android:layout_width="50dp"
             android:layout_height="43dp"
             android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="101dp"
-            android:layout_marginBottom="22dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/home_filled_svgrepo_com" />
+
+        <ImageView
+            android:id="@+id/imageViewLightning"
+            android:layout_width="50dp"
+            android:layout_height="43dp"
+            android:layout_toEndOf="@id/imageViewHome"
+            android:layout_marginStart="16dp"
             android:src="@drawable/lightning_1_svgrepo_com" />
 
         <Button
             android:id="@+id/buttonUpload"
             android:layout_width="62dp"
             android:layout_height="53dp"
-            android:layout_alignBottom="@+id/imageView6"
-            android:layout_marginStart="105dp"
-            android:layout_marginBottom="-2dp"
-            android:layout_toEndOf="@+id/imageView7"
+            android:layout_toEndOf="@id/imageViewLightning"
+            android:layout_marginStart="16dp"
             android:background="@drawable/plus_circle_svgrepo_com"
             android:text="" />
 
-        <Button
-            android:id="@+id/buttonPerson"
+        <ImageView
+            android:id="@+id/imageViewPlay"
+            android:layout_width="50dp"
+            android:layout_height="43dp"
+            android:layout_toEndOf="@id/buttonUpload"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/play1_svgrepo_com" />
+
+        <ImageView
+            android:id="@+id/imageViewPerson"
             android:layout_width="46dp"
             android:layout_height="38dp"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="23dp"
-            android:background="@drawable/person_button_svgrepo_com"
-            android:onClick="onPersonButtonClick" />
-
-        <ImageView
-            android:id="@+id/imageView9"
-            android:layout_width="50dp"
-            android:layout_height="43dp"
-            android:layout_alignBottom="@+id/imageView6"
-            android:layout_marginStart="17dp"
-            android:layout_marginBottom="-1dp"
-            android:layout_toEndOf="@+id/buttonUpload"
-            android:src="@drawable/play1_svgrepo_com" />
-
-        <Switch
-            android:id="@+id/switchMode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="276dp"
-            android:layout_marginBottom="655dp"
-            android:text="Switch mode" />
-
-        <SearchView
-            android:layout_width="151dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="-82dp" />
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/person_button_svgrepo_com" />
     </RelativeLayout>
-    <!-- Video Information -->
+
+    <!-- Switch Mode -->
 
 </RelativeLayout>

@@ -49,35 +49,41 @@ public class Displayname extends Activity {
             public void onClick(View v) {
                 String displayname = displaynameEdittext.getText().toString().trim();
 
-                if (displayname.isEmpty() && selectedImageUri == null) {
-                    Toast.makeText(Displayname.this, "Please enter a display name and upload a photo", Toast.LENGTH_SHORT).show();
-                    return;
-                } else if (displayname.isEmpty()) {
+                if (displayname.isEmpty()) {
                     Toast.makeText(Displayname.this, "Please enter a display name", Toast.LENGTH_SHORT).show();
                     return;
-                } else if (selectedImageUri == null) {
+                }
+
+                if (selectedImageUri == null) {
                     Toast.makeText(Displayname.this, "Please upload a photo", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 Intent intent = getIntent();
-                String photoPath = photoUri.toString();
                 String username = intent.getStringExtra("username");
                 String password = intent.getStringExtra("password");
                 String firstName = intent.getStringExtra("firstName");
                 String lastName = intent.getStringExtra("lastName");
 
-                user user = new user(firstName, lastName, username, password, displayname, photoPath);
+                user user = new user(firstName, lastName, username, password, displayname, selectedImageUri.toString());
                 UserManager.getInstance().addUser(user);
 
                 Intent homescreenIntent = new Intent(Displayname.this, homescreen.class);
-                homescreenIntent.putExtra("firstName", getIntent().getStringExtra("firstName"));
-                homescreenIntent.putExtra("lastName", getIntent().getStringExtra("lastName"));
-                homescreenIntent.putExtra("username", getIntent().getStringExtra("username"));
-                homescreenIntent.putExtra("password", getIntent().getStringExtra("password"));
+                homescreenIntent.putExtra("firstName", firstName);
+                homescreenIntent.putExtra("lastName", lastName);
+                homescreenIntent.putExtra("username", username);
+                homescreenIntent.putExtra("password", password);
                 homescreenIntent.putExtra("displayName", displayname);
                 homescreenIntent.putExtra("photoUri", selectedImageUri.toString());
                 startActivity(homescreenIntent);
+            }
+        });
+
+        Button buttonUploadPhoto = findViewById(R.id.buttonUploadPhoto);
+        buttonUploadPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkAndRequestPermissionsForGallery();
             }
         });
 
@@ -90,6 +96,14 @@ public class Displayname extends Activity {
         });
     }
 
+    private void checkAndRequestPermissionsForGallery() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+        } else {
+            openGallery();
+        }
+    }
+
     private void checkAndRequestPermissionsForCamera() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -97,6 +111,11 @@ public class Displayname extends Activity {
         } else {
             openCamera();
         }
+    }
+
+    private void openGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, REQUEST_IMAGE_PICK);
     }
 
     private void openCamera() {
@@ -121,12 +140,7 @@ public class Displayname extends Activity {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(null);
-        File image = File.createTempFile(
-                imageFileName,
-                ".jpg",
-                storageDir
-        );
-        return image;
+        return File.createTempFile(imageFileName, ".jpg", storageDir);
     }
 
     @Override
@@ -134,7 +148,10 @@ public class Displayname extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == REQUEST_IMAGE_CAPTURE) {
+            if (requestCode == REQUEST_IMAGE_PICK && data != null) {
+                selectedImageUri = data.getData();
+                displaySelectedImage();
+            } else if (requestCode == REQUEST_IMAGE_CAPTURE) {
                 selectedImageUri = photoUri;
                 displaySelectedImage();
             }
@@ -155,13 +172,16 @@ public class Displayname extends Activity {
 
         if (requestCode == PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0) {
-                boolean cameraGranted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                boolean writeExternalStorageGranted = grantResults.length > 1 && grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                boolean readExternalStorageGranted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                boolean cameraGranted = grantResults.length > 1 && grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                boolean writeExternalStorageGranted = grantResults.length > 2 && grantResults[2] == PackageManager.PERMISSION_GRANTED;
 
-                if (cameraGranted && writeExternalStorageGranted) {
+                if (readExternalStorageGranted) {
+                    openGallery();
+                } else if (cameraGranted && writeExternalStorageGranted) {
                     openCamera();
                 } else {
-                    Toast.makeText(this, "Camera or storage permission denied", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
                 }
             }
         }

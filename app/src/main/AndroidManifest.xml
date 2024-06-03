@@ -20,7 +20,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".uploadphoto"
+            android:name=".videowatching"
+            android:exported="false"
+            android:label="@string/title_activity_videowatching"
+            android:theme="@style/Theme.MyApplication" />
+        <activity
+            android:name=".uploadvideo"
             android:exported="false"
             android:label="@string/title_activity_uploadphoto"
             android:theme="@style/Theme.MyApplication" />
@@ -65,6 +70,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.myapplication.fileprovider"
@@ -77,4 +83,3 @@
     </application>
 
 </manifest>
-

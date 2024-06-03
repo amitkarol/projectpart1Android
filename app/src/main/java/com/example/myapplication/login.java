@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.myapplication.entities.UserManager;
+import com.example.myapplication.entities.user;
 
 public class login extends Activity {
 
@@ -35,11 +36,17 @@ public class login extends Activity {
             String password = editTextPassword.getText().toString().trim();
 
             // Validate the username and password
-            boolean userFound = UserManager.getInstance().validateUser(username, password);
+            user userFound = UserManager.getInstance().validateUser(username, password);
 
-            if (userFound) {
-                Intent intenthomescreen = new Intent(login.this, homescreen.class);
-                startActivity(intenthomescreen);
+            if (userFound != null) {
+                Intent homescreenIntent = new Intent(login.this, homescreen.class);
+                homescreenIntent.putExtra("firstName", userFound.getFirstName());
+                homescreenIntent.putExtra("lastName", userFound.getLastName());
+                homescreenIntent.putExtra("username", userFound.getEmail());
+                homescreenIntent.putExtra("password", userFound.getPassword());
+                homescreenIntent.putExtra("displayName", userFound.getDisplayName());
+                homescreenIntent.putExtra("photoUri" , userFound.getPhotoUri());
+                startActivity(homescreenIntent);
             } else {
                 // Display error message
                 Toast.makeText(this, "User does not exist", Toast.LENGTH_SHORT).show();

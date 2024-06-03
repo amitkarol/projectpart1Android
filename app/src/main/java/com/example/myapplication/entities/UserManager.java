@@ -30,12 +30,12 @@ public class UserManager {
         return userList;
     }
 
-    public boolean validateUser(String username, String password) {
+    public user validateUser(String username, String password) {
         for (user user : userList) {
             if (user.getEmail().equals(username) && user.getPassword().equals(password)) {
-                return true;
+                return user;
             }
         }
-        return false;
+        return null;
     }
 }
