@@ -19,7 +19,7 @@ import java.util.List;
 public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.ViewHolder> {
 
     private List<video> videoList;
-    private Context context; // Add Context variable
+    private Context context;
 
     // Constructor with Context parameter
     public VideoListAdapter(List<video> videoList, Context context) {
@@ -58,15 +58,12 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
         holder.channelTextView.setText(video.getChannelName());
 
         // Set OnClickListener for the thumbnail image
-        holder.thumbnailImageView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Start VideoWatchingActivity and pass necessary information
                 Intent intent = new Intent(context, videowatching.class);
                 intent.putExtra("title", video.getTitle());
-                intent.putExtra("description", video.getDescription());
-                intent.putExtra("channelName", video.getChannelName());
-                intent.putExtra("videoUrl", video.getVideoUrl());
                 context.startActivity(intent);
             }
         });

@@ -8,9 +8,9 @@
     <!-- VideoView -->
     <VideoView
         android:id="@+id/videoView"
-        android:layout_width="391dp"
-        android:layout_height="290dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="408dp"
+        android:layout_height="339dp"
+        app:layout_constraintDimensionRatio="H,16:9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -18,7 +18,7 @@
     <!-- Title TextView -->
     <TextView
         android:id="@+id/titleTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Title"
         android:textStyle="bold"
@@ -26,42 +26,62 @@
         app:layout_constraintTop_toBottomOf="@id/videoView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
     <!-- Description TextView -->
     <TextView
         android:id="@+id/descriptionTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Description"
-        android:textStyle="bold"
         android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/titleTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
     <!-- Channel name TextView -->
     <TextView
         android:id="@+id/channelTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Channel Name"
         app:layout_constraintTop_toBottomOf="@id/descriptionTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <!-- View Count TextView -->
+    <TextView
+        android:id="@+id/viewCountTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Views: 0"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/channelTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
     <!-- Like Button -->
     <Button
         android:id="@+id/likeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Like"
+        android:text="Like 0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/channelTextView"
+        app:layout_constraintTop_toBottomOf="@id/viewCountTextView"
         android:layout_marginTop="16dp"
-        android:onClick="onLikeButtonClick"/>
+        android:layout_marginStart="16dp"
+        android:onClick="onLikeButtonClick" />
 
     <!-- Share Button -->
     <Button
@@ -70,9 +90,10 @@
         android:layout_height="wrap_content"
         android:text="Share"
         app:layout_constraintStart_toEndOf="@id/likeButton"
-        app:layout_constraintTop_toBottomOf="@id/channelTextView"
+        app:layout_constraintTop_toBottomOf="@id/viewCountTextView"
         android:layout_marginTop="16dp"
-        android:onClick="onShareButtonClick"/>
+        android:layout_marginStart="8dp"
+        android:onClick="onShareButtonClick" />
 
     <!-- Comments Button -->
     <Button
@@ -81,9 +102,10 @@
         android:layout_height="wrap_content"
         android:text="Comments"
         app:layout_constraintStart_toEndOf="@id/shareButton"
-        app:layout_constraintTop_toBottomOf="@id/channelTextView"
+        app:layout_constraintTop_toBottomOf="@id/viewCountTextView"
         android:layout_marginTop="16dp"
-        android:onClick="onCommentsButtonClick"/>
+        android:layout_marginStart="8dp"
+        android:onClick="onCommentsButtonClick" />
 
     <!-- FrameLayout for CommentsFragment -->
     <FrameLayout
@@ -94,6 +116,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:visibility="gone"
-        tools:visibility="visible"/>
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
