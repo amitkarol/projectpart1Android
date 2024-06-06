@@ -1,5 +1,5 @@
 package com.example.myapplication;
-
+import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
@@ -44,56 +44,38 @@ public class Displayname extends Activity {
         displaynameEdittext = findViewById(R.id.editTextText2);
 
         Button continueButton = findViewById(R.id.button3);
-        continueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String displayname = displaynameEdittext.getText().toString().trim();
+        continueButton.setOnClickListener(v -> {
+            String displayname = displaynameEdittext.getText().toString().trim();
 
-                if (displayname.isEmpty()) {
-                    Toast.makeText(Displayname.this, "Please enter a display name", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (selectedImageUri == null) {
-                    Toast.makeText(Displayname.this, "Please upload a photo", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                Intent intent = getIntent();
-                String username = intent.getStringExtra("username");
-                String password = intent.getStringExtra("password");
-                String firstName = intent.getStringExtra("firstName");
-                String lastName = intent.getStringExtra("lastName");
-
-                user user = new user(firstName, lastName, username, password, displayname, selectedImageUri.toString());
-                UserManager.getInstance().addUser(user);
-
-                Intent homescreenIntent = new Intent(Displayname.this, homescreen.class);
-                homescreenIntent.putExtra("firstName", firstName);
-                homescreenIntent.putExtra("lastName", lastName);
-                homescreenIntent.putExtra("username", username);
-                homescreenIntent.putExtra("password", password);
-                homescreenIntent.putExtra("displayName", displayname);
-                homescreenIntent.putExtra("photoUri", selectedImageUri.toString());
-                startActivity(homescreenIntent);
+            if (displayname.isEmpty()) {
+                Toast.makeText(Displayname.this, "Please enter a display name", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            if (selectedImageUri == null) {
+                Toast.makeText(Displayname.this, "Please upload a photo", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Intent intent = getIntent();
+            String username = intent.getStringExtra("username");
+            String password = intent.getStringExtra("password");
+            String firstName = intent.getStringExtra("firstName");
+            String lastName = intent.getStringExtra("lastName");
+
+            user user = new user(firstName, lastName, username, password, displayname, selectedImageUri.toString());
+            UserManager.getInstance().addUser(user);
+
+            Intent homescreenIntent = new Intent(Displayname.this, homescreen.class);
+            homescreenIntent.putExtra("user", user);
+            startActivity(homescreenIntent);
         });
 
         Button buttonUploadPhoto = findViewById(R.id.buttonUploadPhoto);
-        buttonUploadPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkAndRequestPermissionsForGallery();
-            }
-        });
+        buttonUploadPhoto.setOnClickListener(v -> checkAndRequestPermissionsForGallery());
 
         Button buttonTakePhoto = findViewById(R.id.buttonTakePhoto);
-        buttonTakePhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkAndRequestPermissionsForCamera();
-            }
-        });
+        buttonTakePhoto.setOnClickListener(v -> checkAndRequestPermissionsForCamera());
     }
 
     private void checkAndRequestPermissionsForGallery() {

@@ -33,4 +33,14 @@
         android:textColor="@color/white"
         android:layout_marginTop="4dp" />
 
+    <!-- Edit and Delete Buttons Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="8dp">
+
+    </LinearLayout>
+
 </LinearLayout>

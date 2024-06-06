@@ -95,24 +95,38 @@
         android:layout_marginStart="8dp"
         android:onClick="onShareButtonClick" />
 
-    <!-- Comments Button -->
+    <!-- Edit Button -->
     <Button
-        android:id="@+id/commentsButton"
+        android:id="@+id/editButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Comments"
+        android:text="Edit"
         app:layout_constraintStart_toEndOf="@id/shareButton"
         app:layout_constraintTop_toBottomOf="@id/viewCountTextView"
         android:layout_marginTop="16dp"
         android:layout_marginStart="8dp"
-        android:onClick="onCommentsButtonClick" />
+        android:onClick="onEditButtonClick" />
+
+    <!-- Comments Button -->
 
     <!-- FrameLayout for CommentsFragment -->
+
+    <Button
+        android:id="@+id/commentsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        android:onClick="onCommentsButtonClick"
+        android:text="Comments"
+        app:layout_constraintStart_toEndOf="@id/editButton"
+        app:layout_constraintTop_toBottomOf="@id/viewCountTextView" />
+
     <FrameLayout
         android:id="@+id/commentsContainer"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/commentsButton"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/likeButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:visibility="gone"

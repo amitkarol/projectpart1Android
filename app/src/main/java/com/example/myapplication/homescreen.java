@@ -4,14 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-
+import android.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.myapplication.entities.VideoManager;
 import com.example.myapplication.entities.video;
+import com.example.myapplication.entities.user;
 
 import java.util.List;
 
@@ -21,72 +23,82 @@ public class homescreen extends Activity {
 
     private RecyclerView recyclerView;
     private VideoListAdapter videoAdapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private user loggedInUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.homescreen);
 
+        loggedInUser = (user) getIntent().getSerializableExtra("user");
+        if (loggedInUser == null) {
+            loggedInUser = new user("Test", "User", "testuser@example.com", "Password@123", "TestUser", "fake_uri");
+        }
+
+        // Display user photo
+        ImageView imageViewPerson = findViewById(R.id.imageViewPerson);
+        if (loggedInUser.getPhotoUri() != null) {
+            imageViewPerson.setImageURI(Uri.parse(loggedInUser.getPhotoUri()));
+        }
+
         // Initialize RecyclerView
         recyclerView = findViewById(R.id.recyclerViewVideos);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        int videoRawResource1 = R.raw.video1;
-        int videoRawResource2 = R.raw.video2;
-        int videoRawResource3 = R.raw.video3;
+        // Get the video list from VideoManager
+        refreshVideoList();
 
-        // Construct the video URL using the resource identifier
-        String videoUrl1 = "android.resource://" + getPackageName() + "/" + videoRawResource1;
-        String videoUrl2 = "android.resource://" + getPackageName() + "/" + videoRawResource2;
-        String videoUrl3 = "android.resource://" + getPackageName() + "/" + videoRawResource3;
+        // Set up SwipeRefreshLayout
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            refreshVideoList();
+            swipeRefreshLayout.setRefreshing(false);
+        });
 
-        // Create sample video data
-        List<video> videoList = videowatching.getVideoList();
-        videoList.add(new video("Video Title 1", "Description 1", R.drawable.dog1, videoUrl1, "Channel 1", 0, 0));
-        videoList.add(new video("Video Title 2", "Description 2", R.drawable.dog2, videoUrl2, "Channel 2", 0, 0));
-        videoList.add(new video("Video Title 3", "Description 3", R.drawable.dog2, videoUrl3, "Channel 3", 0, 0));
+        // Set an OnClickListener to the imageViewPerson
+        imageViewPerson.setOnClickListener(v -> {
+            // Start the logout activity with user details as extras
+            Intent logoutIntent = new Intent(homescreen.this, logout.class);
+            logoutIntent.putExtra("user", loggedInUser);
+            startActivity(logoutIntent);
+        });
 
-        // Initialize and set adapter
-        videoAdapter = new VideoListAdapter(videoList, this);
+        // Click the button to upload video and continue to the page of upload video
+        Button buttonUpload = findViewById(R.id.buttonUpload);
+        buttonUpload.setOnClickListener(v -> {
+            Intent uploadIntent = new Intent(this, uploadvideo.class);
+            uploadIntent.putExtra("user", loggedInUser); // Pass the user object
+            startActivity(uploadIntent);
+        });
+
+        // Set up SearchView
+//        SearchView searchView = findViewById(R.id.searchView);
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                // Perform the final search
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                // Filter the list as the user types
+//                videoAdapter.getFilter().filter(newText);
+//                return false;
+//            }
+//        });
+    }
+
+    private void refreshVideoList() {
+        List<video> videoList = VideoManager.getInstance().getVideoList();
+        videoAdapter = new VideoListAdapter(videoList, this, loggedInUser);
         recyclerView.setAdapter(videoAdapter);
+    }
 
-        //Put the photo of the user in the bottom of the home screen
-        Intent intent = getIntent();
-        String photoUri = intent.getStringExtra("photoUri");
-        ImageView imageViewPerson = findViewById(R.id.imageViewPerson);
-        if (photoUri != null) {
-            // Load the photo from URI
-            imageViewPerson.setImageURI(Uri.parse(photoUri));
-        }
-
-        // Set an OnClickListener to the buttonPerson button
-        imageViewPerson.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Retrieve user details from the Intent
-                Intent intent = getIntent();
-                String firstName = intent.getStringExtra("firstName");
-                String lastName = intent.getStringExtra("lastName");
-                String username = intent.getStringExtra("username");
-                String displayName = intent.getStringExtra("displayName");
-                String photoUri = intent.getStringExtra("photoUri");
-
-                // Start the logout activity with user details as extras
-                Intent logoutIntent = new Intent(homescreen.this, logout.class);
-                logoutIntent.putExtra("firstName", firstName);
-                logoutIntent.putExtra("lastName", lastName);
-                logoutIntent.putExtra("username", username);
-                logoutIntent.putExtra("displayName", displayName);
-                logoutIntent.putExtra("photoUri", photoUri);
-                startActivity(logoutIntent);
-            }
-        });
-
-        //Click the button of the upload photo continue to page of upload photo
-        Button buttonPlus = findViewById(R.id.buttonUpload);
-        buttonPlus.setOnClickListener(v -> {
-            Intent intent2 = new Intent(this, uploadvideo.class);
-            startActivity(intent2);
-        });
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshVideoList();
     }
 }

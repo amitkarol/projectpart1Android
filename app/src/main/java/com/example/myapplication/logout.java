@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.myapplication.entities.user;
+import androidx.appcompat.app.AppCompatActivity;
 public class logout extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,12 +17,13 @@ public class logout extends Activity {
         setContentView(R.layout.logout);
 
         // Retrieve user details from the Intent
-        Intent intent = getIntent();
-        String firstName = intent.getStringExtra("firstName");
-        String lastName = intent.getStringExtra("lastName");
-        String username = intent.getStringExtra("username");
-        String displayName = intent.getStringExtra("displayName");
-        String photoUri = intent.getStringExtra("photoUri"); // Retrieve the photo URI
+        user loggedInUser = (user) getIntent().getSerializableExtra("user");
+
+        // Check if the user is null
+        if (loggedInUser == null) {
+            // Handle the case where user data is not passed
+            loggedInUser = new user("Test", "User", "testuser@example.com", "Password@123", "TestUser", "fake_uri");
+        }
 
         // Get references to the TextView fields
         TextView textViewFirstLastName = findViewById(R.id.textView5);
@@ -29,13 +32,13 @@ public class logout extends Activity {
         ImageView imageViewPhoto = findViewById(R.id.imageView4); // Reference to the ImageView
 
         // Set the user details in the TextView fields
-        textViewFirstLastName.setText(firstName + " " + lastName);
-        textViewUsername.setText(username);
-        textViewDisplayName.setText(displayName);
+        textViewFirstLastName.setText(loggedInUser.getFirstName() + " " + loggedInUser.getLastName());
+        textViewUsername.setText(loggedInUser.getEmail());
+        textViewDisplayName.setText(loggedInUser.getDisplayName());
 
         // Set the photo URI to the ImageView
-        if (photoUri != null) {
-            imageViewPhoto.setImageURI(Uri.parse(photoUri));
+        if (loggedInUser.getPhotoUri() != null) {
+            imageViewPhoto.setImageURI(Uri.parse(loggedInUser.getPhotoUri()));
         }
 
         // Get reference to the Logout button

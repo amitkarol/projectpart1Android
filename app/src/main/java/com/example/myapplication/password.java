@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.text.InputType;
 import android.widget.Toast;
 import java.util.regex.Pattern;
-
+import androidx.appcompat.app.AppCompatActivity;
 public class password extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

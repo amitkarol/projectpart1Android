@@ -1,0 +1,87 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- EditText for video title -->
+    <EditText
+        android:id="@+id/titleEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Title"
+        android:inputType="text"
+        android:padding="12dp"
+        android:textSize="16sp"
+        android:background="?android:attr/editTextBackground"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- EditText for video description -->
+    <EditText
+        android:id="@+id/descriptionEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Description"
+        android:inputType="textMultiLine"
+        android:padding="12dp"
+        android:textSize="16sp"
+        android:background="?android:attr/editTextBackground"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- ImageView for thumbnail -->
+    <ImageView
+        android:id="@+id/thumbnailImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="Thumbnail"/>
+
+    <!-- Button to pick a new thumbnail -->
+    <Button
+        android:id="@+id/pickThumbnailButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pick Thumbnail"
+        android:padding="12dp"
+        android:textSize="16sp"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Button to replace the current video with a new one -->
+    <Button
+        android:id="@+id/replaceButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Replace Video"
+        android:padding="12dp"
+        android:textSize="16sp"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Button to delete the video -->
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete Video"
+        android:padding="12dp"
+        android:textSize="16sp"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Button to save changes -->
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:padding="12dp"
+        android:textSize="16sp"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_gravity="center"/>
+
+</LinearLayout>

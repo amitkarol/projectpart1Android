@@ -1,3 +1,4 @@
+
 package com.example.myapplication;
 
 import android.app.Activity;
@@ -7,7 +8,7 @@ import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Username extends Activity {  // Ensure this class is public
     private EditText usernameEditText;
@@ -41,4 +42,3 @@ public class Username extends Activity {  // Ensure this class is public
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 }
-

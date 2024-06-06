@@ -3,13 +3,13 @@ package com.example.myapplication;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.myapplication.entities.UserManager;
 import com.example.myapplication.entities.user;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class login extends Activity {
 
@@ -40,12 +40,7 @@ public class login extends Activity {
 
             if (userFound != null) {
                 Intent homescreenIntent = new Intent(login.this, homescreen.class);
-                homescreenIntent.putExtra("firstName", userFound.getFirstName());
-                homescreenIntent.putExtra("lastName", userFound.getLastName());
-                homescreenIntent.putExtra("username", userFound.getEmail());
-                homescreenIntent.putExtra("password", userFound.getPassword());
-                homescreenIntent.putExtra("displayName", userFound.getDisplayName());
-                homescreenIntent.putExtra("photoUri" , userFound.getPhotoUri());
+                homescreenIntent.putExtra("user", userFound); // Pass the entire user object
                 startActivity(homescreenIntent);
             } else {
                 // Display error message
