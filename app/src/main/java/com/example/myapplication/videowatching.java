@@ -3,12 +3,11 @@ package com.example.myapplication;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.VideoView;
-import com.example.myapplication.Fragments.Comments;
+
 import com.example.myapplication.entities.VideoManager;
 import com.example.myapplication.entities.video;
 import com.example.myapplication.entities.user;
@@ -24,6 +23,7 @@ public class videowatching extends Activity {
     private Button shareButton;
     private Button commentsButton;
     private Button editButton;
+    private Button pauseResumeButton;
     private video currentVideo;
     private user loggedInUser;
 
@@ -42,6 +42,7 @@ public class videowatching extends Activity {
         shareButton = findViewById(R.id.shareButton);
         commentsButton = findViewById(R.id.commentsButton);
         editButton = findViewById(R.id.editButton);
+        pauseResumeButton = findViewById(R.id.pauseResumeButton);
 
         // Get the data passed from homescreen activity
         Intent intent = getIntent();
@@ -86,16 +87,16 @@ public class videowatching extends Activity {
             startActivity(editIntent);
         });
 
-//        // Comments button listener
-//        commentsButton.setOnClickListener(v -> {
-//            Log.d("videowatching", "Comments button clicked");
-//            FragmentManager fragmentManager = getFragmentManager();
-//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//            fragmentTransaction.replace(R.id.commentsContainer, Comments.newInstance());
-//            fragmentTransaction.addToBackStack(null);
-//            fragmentTransaction.commit();
-//            findViewById(R.id.commentsContainer).setVisibility(View.VISIBLE);
-//        });
+        // Pause/Resume button listener
+        pauseResumeButton.setOnClickListener(v -> {
+            if (videoView.isPlaying()) {
+                videoView.pause();
+                pauseResumeButton.setText("Resume");
+            } else {
+                videoView.start();
+                pauseResumeButton.setText("Pause");
+            }
+        });
     }
 
     // Update the text of the like button

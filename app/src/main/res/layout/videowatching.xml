@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,12 +9,30 @@
     <!-- VideoView -->
     <VideoView
         android:id="@+id/videoView"
-        android:layout_width="408dp"
-        android:layout_height="339dp"
-        app:layout_constraintDimensionRatio="H,16:9"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonsLayout"
+        app:layout_constraintDimensionRatio="16:9"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.001" />
+
+    <!-- Buttons Layout -->
+    <LinearLayout
+        android:id="@+id/buttonsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Pause/Resume Button -->
+
+    </LinearLayout>
 
     <!-- Title TextView -->
     <TextView
@@ -108,9 +127,6 @@
         android:onClick="onEditButtonClick" />
 
     <!-- Comments Button -->
-
-    <!-- FrameLayout for CommentsFragment -->
-
     <Button
         android:id="@+id/commentsButton"
         android:layout_width="wrap_content"
@@ -122,6 +138,8 @@
         app:layout_constraintStart_toEndOf="@id/editButton"
         app:layout_constraintTop_toBottomOf="@id/viewCountTextView" />
 
+
+    <!-- FrameLayout for CommentsFragment -->
     <FrameLayout
         android:id="@+id/commentsContainer"
         android:layout_width="0dp"
@@ -131,5 +149,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:visibility="gone"
         tools:visibility="visible" />
+
+    <Button
+        android:id="@+id/pauseResumeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onPauseResumeButtonClick"
+        android:text="Pause"
+        android:textSize="12sp"
+        tools:layout_editor_absoluteX="12dp"
+        tools:layout_editor_absoluteY="164dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
