@@ -44,13 +44,6 @@ public class EditVideoActivity extends Activity {
         loggedInUser = (user) intent.getSerializableExtra("user");
         video originVideo = new video(currentVideo);
 
-        // Check if the video belongs to the logged-in user
-        if (currentVideo != null && !currentVideo.getChannelName().equals(loggedInUser.getDisplayName())) {
-            Toast.makeText(this, "You can only edit your own videos.", Toast.LENGTH_SHORT).show();
-            finish();
-            return;
-        }
-
         // Populate fields if data is available
         if (currentVideo != null) {
             titleEditText.setText(currentVideo.getTitle());

@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.text.InputType;
 import android.widget.Toast;
 import java.util.regex.Pattern;
-import androidx.appcompat.app.AppCompatActivity;
+
 public class password extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +35,10 @@ public class password extends Activity {
                 // Hide password
                 editTextPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 editTextConfirmPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-
             }
             // Move the cursor to the end of the text
             editTextPassword.setSelection(editTextPassword.length());
-            editTextConfirmPassword.setSelection(editTextPassword.length());
+            editTextConfirmPassword.setSelection(editTextConfirmPassword.length());
         });
 
         Button nextButton = findViewById(R.id.thirdButton);
@@ -49,7 +48,7 @@ public class password extends Activity {
 
             if (!isValidPassword(password)) {
                 // Display error message for invalid password format
-                Toast.makeText(this, "Password must be at least 8 characters long and contain letters, numbers, and symbols.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Password does not meet the conditions.", Toast.LENGTH_LONG).show();
             } else if (!password.equals(confirmPassword)) {
                 // Display error message if passwords do not match
                 Toast.makeText(this, "Passwords do not match.", Toast.LENGTH_SHORT).show();

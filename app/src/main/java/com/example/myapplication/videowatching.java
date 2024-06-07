@@ -1,18 +1,23 @@
 package com.example.myapplication;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import androidx.fragment.app.FragmentActivity;
+
 import com.example.myapplication.entities.VideoManager;
 import com.example.myapplication.entities.video;
 import com.example.myapplication.entities.user;
+import com.example.myapplication.Fragments.Comments;
+import com.example.myapplication.AddCommentDialog;
 
-public class videowatching extends Activity {
+public class videowatching extends FragmentActivity {
+
+    private static final String TAG = "videowatching";
 
     private TextView titleTextView;
     private TextView descriptionTextView;
@@ -22,6 +27,7 @@ public class videowatching extends Activity {
     private Button likeButton;
     private Button shareButton;
     private Button commentsButton;
+    private Button addCommentButton;
     private Button editButton;
     private Button pauseResumeButton;
     private video currentVideo;
@@ -41,6 +47,7 @@ public class videowatching extends Activity {
         likeButton = findViewById(R.id.likeButton);
         shareButton = findViewById(R.id.shareButton);
         commentsButton = findViewById(R.id.commentsButton);
+        addCommentButton = findViewById(R.id.addCommentButton);
         editButton = findViewById(R.id.editButton);
         pauseResumeButton = findViewById(R.id.pauseResumeButton);
 
@@ -81,10 +88,15 @@ public class videowatching extends Activity {
 
         // Edit button listener
         editButton.setOnClickListener(v -> {
-            Intent editIntent = new Intent(videowatching.this, EditVideoActivity.class);
-            editIntent.putExtra("video", currentVideo);
-            editIntent.putExtra("user", loggedInUser);
-            startActivity(editIntent);
+            if (currentVideo != null && loggedInUser != null) {
+                Log.d(TAG, "Editing video: " + currentVideo.getTitle() + " by user: " + loggedInUser.getDisplayName());
+                Intent editIntent = new Intent(videowatching.this, EditVideoActivity.class);
+                editIntent.putExtra("video", currentVideo);
+                editIntent.putExtra("user", loggedInUser);
+                startActivity(editIntent);
+            } else {
+                Log.e(TAG, "Current video or logged-in user is null");
+            }
         });
 
         // Pause/Resume button listener
@@ -97,6 +109,31 @@ public class videowatching extends Activity {
                 pauseResumeButton.setText("Pause");
             }
         });
+
+        // Comments button listener
+        commentsButton.setOnClickListener(v -> {
+            Comments commentsFragment = new Comments(currentVideo);
+            commentsFragment.show(getSupportFragmentManager(), "CommentsFragment");
+        });
+
+        // Add Comment button listener
+        addCommentButton.setOnClickListener(v -> {
+            AddCommentDialog addCommentDialog = new AddCommentDialog(this, currentVideo, loggedInUser, newComment -> {
+                // Update the UI or perform actions after the comment is added
+                updateCommentsButton();
+            });
+            addCommentDialog.show();
+        });
+
+        // Initial update of comments button
+        updateCommentsButton();
+    }
+
+    private void updateCommentsButton() {
+        if (currentVideo != null) {
+            int commentCount = currentVideo.getComments().size();
+            commentsButton.setText("Comments (" + commentCount + ")");
+        }
     }
 
     // Update the text of the like button

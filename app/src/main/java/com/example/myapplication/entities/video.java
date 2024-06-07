@@ -1,7 +1,9 @@
 package com.example.myapplication.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class video implements Serializable {
@@ -14,6 +16,7 @@ public class video implements Serializable {
     private int viewCount;
     private int likeCount;
     private Map<String, Boolean> userLikes; // Track likes per user
+    private List<Comment> comments; // Add this line
 
     public video(String title, String description, String thumbnailUrl, int thumbnailResId, String videoUrl, String channelName, int viewCount, int likeCount) {
         this.title = title;
@@ -25,13 +28,14 @@ public class video implements Serializable {
         this.viewCount = viewCount;
         this.likeCount = likeCount;
         this.userLikes = new HashMap<>();
+        this.comments = new ArrayList<>(); // Initialize the comments list
     }
 
     public video(String videoUrl) {
         this.videoUrl = videoUrl;
         this.userLikes = new HashMap<>();
+        this.comments = new ArrayList<>(); // Initialize the comments list
     }
-
 
     // Copy constructor
     public video(video original) {
@@ -43,6 +47,7 @@ public class video implements Serializable {
         this.channelName = original.channelName;
         this.likeCount = original.likeCount;
         this.viewCount = original.viewCount;
+        this.comments = new ArrayList<>(original.comments); // Copy the comments list
     }
 
     // Getters and setters
@@ -119,6 +124,14 @@ public class video implements Serializable {
         this.userLikes = userLikes;
     }
 
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+    }
+
     public void incrementViewCount() {
         this.viewCount++;
     }
@@ -153,6 +166,7 @@ public class video implements Serializable {
                 ", viewCount=" + viewCount +
                 ", likeCount=" + likeCount +
                 ", userLikes=" + userLikes +
+                ", comments=" + comments +
                 '}';
     }
 }

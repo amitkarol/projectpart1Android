@@ -42,9 +42,24 @@ public class VideoManager {
         String photo3 = "android.resource://" + "com.example.myapplication" + "/" + R.drawable.dog1;
 
         // Create sample video data
-        videoSet.add(new video("Video Title 1", "Description 1", photo1, R.drawable.dog1, videoUrl1, "Channel 1", 0, 0));
-        videoSet.add(new video("Video Title 2", "Description 2", photo2, R.drawable.dog2, videoUrl2, "Channel 2", 0, 0));
-        videoSet.add(new video("Video Title 3", "Description 3", photo3, R.drawable.dog1, videoUrl3, "Channel 3", 0, 0));
+        video video1 = new video("Video Title 1", "Description 1", photo1, R.drawable.dog1, videoUrl1, "Channel 1", 0, 0);
+        video video2 = new video("Video Title 2", "Description 2", photo2, R.drawable.dog2, videoUrl2, "Channel 2", 0, 0);
+        video video3 = new video("Video Title 3", "Description 3", photo3, R.drawable.dog1, videoUrl3, "Channel 3", 0, 0);
+
+        // Add comments to videos
+        video1.addComment(new Comment("User1", "Great video!"));
+        video1.addComment(new Comment("User2", "Thanks for sharing!"));
+
+        video2.addComment(new Comment("User3", "Very informative."));
+        video2.addComment(new Comment("User4", "Loved it!"));
+
+        video3.addComment(new Comment("User5", "Amazing content."));
+        video3.addComment(new Comment("User6", "Keep it up!"));
+
+        // Add videos to the set
+        videoSet.add(video1);
+        videoSet.add(video2);
+        videoSet.add(video3);
     }
 
     public List<video> getVideoList() {
@@ -65,6 +80,7 @@ public class VideoManager {
             videoSet.removeIf(video -> video.getVideoUrl().equals(videoToRemove.getVideoUrl())); // Ensure removal by URL
         }
     }
+
     public void clearVideos() {
         videoSet.clear();
         initializeSampleVideos();
