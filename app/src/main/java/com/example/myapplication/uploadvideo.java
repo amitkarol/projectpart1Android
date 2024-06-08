@@ -12,7 +12,7 @@ import android.widget.VideoView;
 
 import com.example.myapplication.entities.user;
 
-public class uploadvideo extends Activity {
+public class uploadvideo extends BaseActivity {
 
     private static final int REQUEST_VIDEO_PICK = 101;
     private VideoView videoView;
@@ -22,6 +22,7 @@ public class uploadvideo extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ThemeUtil.applyTheme(this);
         setContentView(R.layout.uploadvideo);
 
         // Get the logged-in user from the intent

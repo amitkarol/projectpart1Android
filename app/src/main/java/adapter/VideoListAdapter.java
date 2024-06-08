@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ThemeUtil;
 import com.example.myapplication.entities.video;
 import com.example.myapplication.entities.user;
 import com.example.myapplication.videowatching;
@@ -90,6 +91,10 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
             intent.putExtra("user", loggedInUser);
             context.startActivity(intent);
         });
+
+        // Apply the theme to each item view
+        boolean isNightMode = ThemeUtil.isNightMode(context);
+        ThemeUtil.changeTextColor(holder.itemView, isNightMode);
     }
 
     @Override

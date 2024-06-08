@@ -9,4 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="custom_red">#FF0000</color>
     <color name="darkBackground">#333333</color>
+    <color name="colorPrimary">#FF000000</color> <!-- Black -->
+    <color name="colorPrimaryDark">#FF000000</color> <!-- Black -->
+    <color name="colorAccent">#FFFFFFFF</color> <!-- White -->
 </resources>

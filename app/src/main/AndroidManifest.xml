@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
@@ -22,6 +23,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
+        <activity
+            android:name=".welcome"
+            android:exported="false"
+            android:label="@string/title_activity_welcome"
+            android:theme="@style/Theme.MyApplication" />
+        <activity
+            android:name=".BaseActivity"
+            android:exported="false"
+            android:label="@string/title_activity_base"
+            android:theme="@style/Theme.MyApplication" />
         <activity
             android:name=".EditVideoActivity"
             android:exported="false"
@@ -93,6 +104,14 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <receiver
+            android:name=".homescreen"
+            android:exported="true"> <!-- or false -->
+            <intent-filter>
+                <action android:name="com.example.myapplication.YOUR_ACTION" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

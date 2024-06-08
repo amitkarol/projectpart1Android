@@ -1,6 +1,5 @@
 package com.example.myapplication;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -9,13 +8,13 @@ import android.widget.Toast;
 
 import com.example.myapplication.entities.UserManager;
 import com.example.myapplication.entities.user;
-import androidx.appcompat.app.AppCompatActivity;
 
-public class login extends Activity {
+public class login extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ThemeUtil.applyTheme(this);
         setContentView(R.layout.loginscreen);
 
         // Button for creating an account

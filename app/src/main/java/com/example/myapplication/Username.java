@@ -1,21 +1,23 @@
-
 package com.example.myapplication;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
 
-public class Username extends Activity {  // Ensure this class is public
+import com.example.myapplication.entities.UserManager;
+
+public class Username extends BaseActivity {
     private EditText usernameEditText;
+    private UserManager usermanager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ThemeUtil.applyTheme(this);
         setContentView(R.layout.username);
 
         usernameEditText = findViewById(R.id.editTextText2);
@@ -23,6 +25,11 @@ public class Username extends Activity {  // Ensure this class is public
         Button secbtnName = findViewById(R.id.second_button);
         secbtnName.setOnClickListener(v -> {
             String username = usernameEditText.getText().toString().trim();
+            usermanager = UserManager.getInstance();
+            if (usermanager.isAlreadyExists(username)) {
+                Toast.makeText(Username.this, "username already taken. try another one", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             if (!isValidEmail(username)) {
                 // Display error message for invalid email format
@@ -30,15 +37,17 @@ public class Username extends Activity {  // Ensure this class is public
             } else {
                 // Proceed to next screen
                 Intent intent = new Intent(this, password.class);
-                intent.putExtra("firstName" ,  getIntent().getStringExtra("firstName"));
-                intent.putExtra("lastName" , getIntent().getStringExtra("lastName"));
+                intent.putExtra("firstName", getIntent().getStringExtra("firstName"));
+                intent.putExtra("lastName", getIntent().getStringExtra("lastName"));
                 intent.putExtra("username", username);
                 startActivity(intent);
             }
         });
+
     }
 
     private boolean isValidEmail(String email) {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
+
 }

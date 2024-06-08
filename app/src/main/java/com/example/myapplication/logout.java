@@ -10,10 +10,11 @@ import android.widget.TextView;
 
 import com.example.myapplication.entities.user;
 import androidx.appcompat.app.AppCompatActivity;
-public class logout extends Activity {
+public class logout extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ThemeUtil.applyTheme(this);
         setContentView(R.layout.logout);
 
         // Retrieve user details from the Intent

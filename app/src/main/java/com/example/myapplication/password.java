@@ -10,10 +10,11 @@ import android.text.InputType;
 import android.widget.Toast;
 import java.util.regex.Pattern;
 
-public class password extends Activity {
+public class password extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ThemeUtil.applyTheme(this);
         setContentView(R.layout.password);
 
         Button thirdbtn = findViewById(R.id.thirdButton);

@@ -6,125 +6,131 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- VideoView -->
-    <VideoView
-        android:id="@+id/videoView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonsLayout"
-        app:layout_constraintDimensionRatio="16:9"
+    <FrameLayout
+        android:id="@+id/videoFrame"
+        android:layout_width="420dp"
+        android:layout_height="228dp"
+        android:background="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@+id/titleTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.001" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <!-- Buttons Layout -->
-    <LinearLayout
-        android:id="@+id/buttonsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="bottom"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        <!-- VideoView with fixed size -->
 
-        <!-- Pause/Resume Button -->
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="408dp"
+            android:layout_height="240dp"
+            android:layout_gravity="center"
+            android:background="@null" />
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/pauseResumeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:onClick="onPauseResumeButtonClick"
+            android:text="Pause"
+            android:textSize="12sp" />
+    </FrameLayout>
 
-    <!-- Title TextView -->
+    <!-- Description TextView -->
+
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Title"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/videoView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="16dp"
+        android:text="Title"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/videoFrame" />
 
-    <!-- Description TextView -->
     <TextView
         android:id="@+id/descriptionTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/black"
         android:text="Description"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/titleTextView"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView" />
 
     <!-- Channel name TextView -->
     <TextView
         android:id="@+id/channelTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Channel Name"
-        app:layout_constraintTop_toBottomOf="@id/descriptionTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/black"
+        android:text="Channel Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/descriptionTextView" />
 
     <!-- View Count TextView -->
     <TextView
         android:id="@+id/viewCountTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/black"
         android:text="Views: 0"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/channelTextView"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/channelTextView" />
 
     <!-- Like Button -->
     <Button
         android:id="@+id/likeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:onClick="onLikeButtonClick"
         android:text="Like 0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewCountTextView"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:onClick="onLikeButtonClick" />
+        app:layout_constraintTop_toBottomOf="@id/viewCountTextView" />
 
     <!-- Share Button -->
     <Button
         android:id="@+id/shareButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:onClick="onShareButtonClick"
         android:text="Share"
         app:layout_constraintStart_toEndOf="@id/likeButton"
-        app:layout_constraintTop_toBottomOf="@id/viewCountTextView"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="8dp"
-        android:onClick="onShareButtonClick" />
+        app:layout_constraintTop_toBottomOf="@id/viewCountTextView" />
 
     <!-- Edit Button -->
     <Button
         android:id="@+id/editButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:onClick="onEditButtonClick"
         android:text="Edit"
         app:layout_constraintStart_toEndOf="@id/shareButton"
-        app:layout_constraintTop_toBottomOf="@id/viewCountTextView"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="8dp"
-        android:onClick="onEditButtonClick" />
+        app:layout_constraintTop_toBottomOf="@id/viewCountTextView" />
 
     <!-- Add Comment Button -->
     <Button
@@ -163,15 +169,15 @@
         android:layout_marginEnd="16dp"
         android:visibility="gone" />
 
-    <Button
-        android:id="@+id/pauseResumeButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/buttonsLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onPauseResumeButtonClick"
-        android:text="Pause"
-        android:textSize="12sp"
-        tools:layout_editor_absoluteX="12dp"
-        tools:layout_editor_absoluteY="164dp"
-        tools:ignore="MissingConstraints" />
+        android:orientation="horizontal"
+        android:gravity="bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

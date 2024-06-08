@@ -8,13 +8,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends Activity {
+public class MainActivity extends BaseActivity {
     private EditText firstNameEditText;
     private EditText lastNameEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ThemeUtil.applyTheme(this);
         setContentView(R.layout.registrationscreen);
 
         firstNameEditText = findViewById(R.id.editTextText);

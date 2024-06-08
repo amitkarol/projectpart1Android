@@ -15,7 +15,7 @@ import com.example.myapplication.entities.VideoManager;
 import com.example.myapplication.entities.video;
 import com.example.myapplication.entities.user;
 
-public class detailsofvideo extends Activity {
+public class detailsofvideo extends BaseActivity {
 
     private static final int REQUEST_IMAGE_PICK = 1;
 
@@ -32,8 +32,8 @@ public class detailsofvideo extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ThemeUtil.applyTheme(this);
         setContentView(R.layout.detailsofvideo);
-
         editTextTitle = findViewById(R.id.editTextTitle);
         editTextDescription = findViewById(R.id.editTextDescription);
         buttonSaveDetails = findViewById(R.id.buttonSaveDetails);

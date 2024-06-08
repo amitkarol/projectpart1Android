@@ -38,4 +38,12 @@ public class UserManager {
         }
         return null;
     }
+    public boolean isAlreadyExists(String username) {
+        for (user user : userList) {
+            if (user.getEmail().equals(username)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
