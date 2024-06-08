@@ -24,6 +24,10 @@ public class Comment implements Serializable {
         return comment;
     }
 
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     public String getTimestamp() {
         return timestamp;
     }

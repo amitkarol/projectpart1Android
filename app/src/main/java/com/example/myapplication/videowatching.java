@@ -171,6 +171,7 @@ public class videowatching extends FragmentActivity {
             boolean hasLiked = currentVideo.hasLiked(loggedInUser.getEmail());
             int likeCount = currentVideo.getLikeCount();
             likeButton.setText(hasLiked ? "Unlike (" + likeCount + ")" : "Like (" + likeCount + ")");
+            likeButton.setCompoundDrawablesWithIntrinsicBounds(hasLiked ? R.drawable.unlike : R.drawable.like, 0, 0, 0);
         }
     }
 

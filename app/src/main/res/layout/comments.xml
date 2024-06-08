@@ -8,28 +8,30 @@
     tools:context=".Fragments.Comments">
 
     <!-- Close Button -->
+
+    <!-- RecyclerView for Comments -->
+
     <Button
         android:id="@+id/closeButton"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:padding="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/close_button_background"
-        android:text="X"
-        android:contentDescription="Close"
         android:clickable="true"
+        android:contentDescription="Close"
         android:focusable="true"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:padding="8dp"
+        android:text="X"
+        android:textColor="@android:color/black"
         android:textSize="24sp"
-        android:textColor="@android:color/black"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- RecyclerView for Comments -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/commentsRecyclerView"
-        android:layout_width="376dp"
-        android:layout_height="283dp"
+        android:layout_width="367dp"
+        android:layout_height="298dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"

@@ -8,13 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.myapplication.R;
 import com.example.myapplication.entities.Comment;
 import com.example.myapplication.entities.video;
+
 import adapter.CommentsAdapter;
+
 import java.util.List;
 
 public class Comments extends DialogFragment {
@@ -40,14 +44,13 @@ public class Comments extends DialogFragment {
 
         Button closeButton = view.findViewById(R.id.closeButton);
         closeButton.setOnClickListener(v -> {
-            Log.d(TAG, "Close button clicked");
             dismiss();
         });
 
         // Initialize with comments from the video
         commentList = currentVideo.getComments();
 
-        commentsAdapter = new CommentsAdapter(commentList);
+        commentsAdapter = new CommentsAdapter(getActivity(), commentList);
         commentsRecyclerView.setAdapter(commentsAdapter);
 
         return view;

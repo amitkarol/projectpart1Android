@@ -21,17 +21,20 @@ import com.example.myapplication.entities.user;
 import com.example.myapplication.videowatching;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.ViewHolder> {
 
     private List<video> videoList;
+    private List<video> filteredVideoList;
     private Context context;
     private user loggedInUser;
 
     // Constructor with Context parameter
     public VideoListAdapter(List<video> videoList, Context context, user loggedInUser) {
         this.videoList = videoList;
+        this.filteredVideoList = new ArrayList<>(videoList);
         this.context = context;
         this.loggedInUser = loggedInUser;
     }
@@ -61,7 +64,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // Bind data to the views in each item
-        video video = videoList.get(position);
+        video video = filteredVideoList.get(position);
 
         holder.titleTextView.setText(video.getTitle());
         holder.channelTextView.setText(video.getChannelName());
@@ -100,6 +103,21 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
     @Override
     public int getItemCount() {
         // Return the size of your dataset
-        return videoList.size();
+        return filteredVideoList.size();
+    }
+
+    // Method to filter the list
+    public void filter(String query) {
+        filteredVideoList.clear();
+        if (query.isEmpty()) {
+            filteredVideoList.addAll(videoList);
+        } else {
+            for (video video : videoList) {
+                if (video.getTitle().toLowerCase().contains(query.toLowerCase())) {
+                    filteredVideoList.add(video);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 }

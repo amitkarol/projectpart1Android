@@ -9,13 +9,13 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -33,7 +33,6 @@ import adapter.VideoListAdapter;
 
 public class homescreen extends Activity {
 
-    private static final String TAG = "homescreenActivity";
     private RecyclerView recyclerView;
     private VideoListAdapter videoAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -41,14 +40,13 @@ public class homescreen extends Activity {
     private Switch modeSwitch;
     private RelativeLayout homeScreenLayout;
     private ThemeChangeReceiver themeChangeReceiver;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ThemeUtil.applyTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.homescreen);
-
-        Log.d(TAG, "onCreate: Applying theme");
 
         // Initialize the receiver
         themeChangeReceiver = new ThemeChangeReceiver();
@@ -63,10 +61,9 @@ public class homescreen extends Activity {
 
         loggedInUser = (user) getIntent().getSerializableExtra("user");
         if (loggedInUser == null) {
-            loggedInUser = new user("Test", "User", "testuser@example.com", "Password@123", "TestUser", "fake_uri");
-            Log.w(TAG, "onCreate: No user data received, using default user");
-        } else {
-            Log.d(TAG, "onCreate: Received user data: " + loggedInUser);
+            Uri person = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.person);
+            loggedInUser = new user("Test", "User", "testuser@example.com", "Password@123", "TestUser", person.toString()
+            );
         }
 
         // Display user photo
@@ -85,10 +82,8 @@ public class homescreen extends Activity {
         // Set up SwipeRefreshLayout
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            Log.d(TAG, "SwipeRefreshLayout: Refresh triggered");
             refreshVideoList();
             swipeRefreshLayout.setRefreshing(false);
-            Log.d(TAG, "SwipeRefreshLayout: Refresh completed");
         });
 
         // Set an OnClickListener to the imageViewPerson
@@ -125,7 +120,6 @@ public class homescreen extends Activity {
         modeSwitch.setChecked(isNightMode); // Set switch state based on saved preference
 
         modeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            Log.d(TAG, "onCheckedChanged: Theme switch toggled, isChecked: " + isChecked);
             // Save the new theme preference
             SharedPreferences.Editor editor = getSharedPreferences("theme_prefs", MODE_PRIVATE).edit();
             editor.putBoolean("night_mode", isChecked);
@@ -135,21 +129,38 @@ public class homescreen extends Activity {
             applyTheme(isChecked);
         });
 
-        Log.d(TAG, "onCreate: Activity created successfully");
+        // Initialize SearchView
+        searchView = findViewById(R.id.searchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filterVideos(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterVideos(newText);
+                return true;
+            }
+        });
     }
 
     private void refreshVideoList() {
-        Log.d(TAG, "refreshVideoList: Refreshing video list");
         List<video> videoList = VideoManager.getInstance().getVideoList();
         videoAdapter = new VideoListAdapter(videoList, this, loggedInUser);
         recyclerView.setAdapter(videoAdapter);
-        Log.d(TAG, "refreshVideoList: Video list refreshed and adapter set");
+    }
+
+    private void filterVideos(String query) {
+        if (videoAdapter != null) {
+            videoAdapter.filter(query);
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume: Refreshing video list");
         refreshVideoList();
     }
 
@@ -157,7 +168,6 @@ public class homescreen extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(themeChangeReceiver);
-        Log.d(TAG, "onDestroy: Unregistering theme change receiver");
     }
 
     private void applyTheme(boolean isNightMode) {
@@ -175,7 +185,6 @@ public class homescreen extends Activity {
         homeScreenLayout.setBackgroundColor(backgroundColor);
         changeTextColor(homeScreenLayout, textColor);
         changeTextColor(recyclerView, textColor);  // Apply to RecyclerView items
-        Log.d(TAG, "applyTheme: Applying theme, isNightMode: " + isNightMode);
     }
 
     private void changeTextColor(View view, int color) {
@@ -197,7 +206,6 @@ public class homescreen extends Activity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        Log.d(TAG, "onConfigurationChanged: Configuration changed, applying theme");
         // Apply theme based on the current night mode setting
         SharedPreferences preferences = getSharedPreferences("theme_prefs", MODE_PRIVATE);
         boolean isNightMode = preferences.getBoolean("night_mode", false);

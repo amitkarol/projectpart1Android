@@ -74,7 +74,7 @@
             android:layout_height="43dp"
             android:layout_alignParentStart="true"
             android:layout_marginStart="16dp"
-            android:src="@drawable/home_filled_svgrepo_com"
+            android:src="@drawable/home"
              />
 
         <ImageView
@@ -83,7 +83,7 @@
             android:layout_height="43dp"
             android:layout_toEndOf="@id/imageViewHome"
             android:layout_marginStart="16dp"
-            android:src="@drawable/lightning_1_svgrepo_com"
+            android:src="@drawable/trends"
             />
 
         <Button
@@ -92,7 +92,7 @@
             android:layout_height="53dp"
             android:layout_marginStart="28dp"
             android:layout_toEndOf="@id/imageViewLightning"
-            android:background="@drawable/plus_circle_svgrepo_com"
+            android:background="@drawable/plus"
             android:text="" />
 
         <ImageView
@@ -101,7 +101,7 @@
             android:layout_height="43dp"
             android:layout_marginStart="28dp"
             android:layout_toEndOf="@id/buttonUpload"
-            android:src="@drawable/play1_svgrepo_com"
+            android:src="@drawable/subscriptions"
              />
 
         <ImageView
