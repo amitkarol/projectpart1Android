@@ -183,10 +183,10 @@ public class homescreen extends Activity {
         }
 
         homeScreenLayout.setBackgroundColor(backgroundColor);
+        recyclerView.setBackgroundColor(backgroundColor);
         changeTextColor(homeScreenLayout, textColor);
-        changeTextColor(recyclerView, textColor);  // Apply to RecyclerView items
+        ThemeUtil.applyThemeToRecyclerView(recyclerView, isNightMode);  // Apply theme to RecyclerView items
     }
-
     private void changeTextColor(View view, int color) {
         if (view instanceof ViewGroup) {
             ViewGroup viewGroup = (ViewGroup) view;
@@ -211,4 +211,5 @@ public class homescreen extends Activity {
         boolean isNightMode = preferences.getBoolean("night_mode", false);
         applyTheme(isNightMode);
     }
+
 }

@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 public class ThemeUtil {
     private static final String PREFS_NAME = "theme_prefs";
     private static final String KEY_NIGHT_MODE = "night_mode";
@@ -23,9 +25,9 @@ public class ThemeUtil {
             activity.setTheme(R.style.DayTheme);
         }
 
-        // Apply text color change
+        // Apply text color and background color change
         View rootView = activity.findViewById(android.R.id.content).getRootView();
-        changeTextColor(rootView, isNightMode);
+        changeAppearance(rootView, isNightMode);
     }
 
     public static void setNightMode(Context context, boolean isNightMode) {
@@ -62,6 +64,61 @@ public class ThemeUtil {
         } else if (view instanceof EditText) {
             ((EditText) view).setTextColor(textColor);
             ((EditText) view).setHintTextColor(hintTextColor);
+        }
+    }
+
+    public static void changeBackgroundColor(View view, boolean isNightMode) {
+        int backgroundColor = isNightMode ? view.getResources().getColor(R.color.darkBackground) : view.getResources().getColor(R.color.white);
+        changeBackgroundColor(view, backgroundColor);
+    }
+
+    public static void changeBackgroundColor(View view, int backgroundColor) {
+        if (view instanceof ViewGroup) {
+            ViewGroup viewGroup = (ViewGroup) view;
+            for (int i = 0; i < viewGroup.getChildCount(); i++) {
+                View child = viewGroup.getChildAt(i);
+                changeBackgroundColor(child, backgroundColor);
+            }
+        } else {
+            view.setBackgroundColor(backgroundColor);
+        }
+    }
+
+    public static void changeAppearance(View view, boolean isNightMode) {
+        int textColor = isNightMode ? view.getResources().getColor(R.color.white) : view.getResources().getColor(R.color.black);
+        int hintTextColor = isNightMode ? view.getResources().getColor(R.color.white) : view.getResources().getColor(R.color.black);
+        int backgroundColor = isNightMode ? view.getResources().getColor(R.color.darkBackground) : view.getResources().getColor(R.color.white);
+
+        changeAppearance(view, textColor, hintTextColor, backgroundColor);
+    }
+
+    public static void changeAppearance(View view, int textColor, int hintTextColor, int backgroundColor) {
+        if (view instanceof ViewGroup) {
+            ViewGroup viewGroup = (ViewGroup) view;
+            for (int i = 0; i < viewGroup.getChildCount(); i++) {
+                View child = viewGroup.getChildAt(i);
+                changeAppearance(child, textColor, hintTextColor, backgroundColor);
+            }
+        } else {
+            if (view instanceof TextView) {
+                ((TextView) view).setTextColor(textColor);
+            } else if (view instanceof EditText) {
+                ((EditText) view).setTextColor(textColor);
+                ((EditText) view).setHintTextColor(hintTextColor);
+            }
+            view.setBackgroundColor(backgroundColor);
+        }
+    }
+
+    public static void applyThemeToRecyclerView(RecyclerView recyclerView, boolean isNightMode) {
+        RecyclerView.Adapter adapter = recyclerView.getAdapter();
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
+        // Iterate over each child view and apply the theme
+        for (int i = 0; i < recyclerView.getChildCount(); i++) {
+            View child = recyclerView.getChildAt(i);
+            changeAppearance(child, isNightMode);
         }
     }
 }
