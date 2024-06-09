@@ -38,7 +38,7 @@ public class AddCommentDialog extends Dialog {
             String commentText = commentEditText.getText().toString().trim();
             if (!commentText.isEmpty()) {
                 // Add the comment to the video
-                Comment newComment = new Comment(loggedInUser.getDisplayName(), commentText);
+                Comment newComment = new Comment(loggedInUser.getDisplayName(), commentText, loggedInUser.getPhotoUri());
                 currentVideo.addComment(newComment);
                 listener.onCommentAdded(newComment);
                 dismiss();

@@ -36,11 +36,12 @@ public class uploadvideo extends BaseActivity {
         });
 
         Button uploadButton = findViewById(R.id.uploadVideoButton);
-        uploadButton.setOnClickListener(v -> {
-            openGallery();
-        });
+        uploadButton.setOnClickListener(v -> openGallery());
 
         videoView = findViewById(R.id.videoView);
+
+        // Set Z-Order for the VideoView's SurfaceView
+        videoView.setZOrderOnTop(true);
 
         Button continueButton = findViewById(R.id.continueButton);
         continueButton.setOnClickListener(v -> {
@@ -54,6 +55,12 @@ public class uploadvideo extends BaseActivity {
                 Log.d("UploadVideo", "No video selected");
                 Toast.makeText(this, "Please select a video first", Toast.LENGTH_SHORT).show();
             }
+        });
+
+        // Initialize the VideoView
+        videoView.setOnPreparedListener(mediaPlayer -> {
+            mediaPlayer.setLooping(true);
+            videoView.start();
         });
     }
 
@@ -70,8 +77,26 @@ public class uploadvideo extends BaseActivity {
             selectedVideoUri = data.getData();
             if (selectedVideoUri != null) {
                 videoView.setVideoURI(selectedVideoUri);
+                videoView.requestFocus();
                 videoView.start();
             }
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (videoView.isPlaying()) {
+            videoView.pause();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (selectedVideoUri != null) {
+            videoView.setVideoURI(selectedVideoUri);
+            videoView.start();
         }
     }
 }

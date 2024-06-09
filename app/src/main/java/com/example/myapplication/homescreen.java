@@ -185,7 +185,7 @@ public class homescreen extends Activity {
         homeScreenLayout.setBackgroundColor(backgroundColor);
         recyclerView.setBackgroundColor(backgroundColor);
         changeTextColor(homeScreenLayout, textColor);
-        ThemeUtil.applyThemeToRecyclerView(recyclerView, isNightMode);  // Apply theme to RecyclerView items
+        ThemeUtil.applyThemeToRecyclerView(recyclerView, isNightMode);
     }
     private void changeTextColor(View view, int color) {
         if (view instanceof ViewGroup) {
@@ -196,10 +196,10 @@ public class homescreen extends Activity {
             }
         } else if (view instanceof TextView) {
             ((TextView) view).setTextColor(color);
-        } else if (view instanceof Button) {
-            ((Button) view).setTextColor(color);
         } else if (view instanceof EditText) {
             ((EditText) view).setTextColor(color);
+        } else if (view instanceof SearchView) {
+            ((SearchView) view).setBackgroundColor(color);
         }
     }
 
@@ -212,4 +212,8 @@ public class homescreen extends Activity {
         applyTheme(isNightMode);
     }
 
+    @Override
+    public void onBackPressed() {
+        // Do nothing to prevent the user from navigating back
+    }
 }

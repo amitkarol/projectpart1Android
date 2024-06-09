@@ -1,13 +1,14 @@
 package com.example.myapplication;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.myapplication.entities.VideoManager;
@@ -15,14 +16,13 @@ import com.example.myapplication.entities.video;
 import com.example.myapplication.entities.user;
 
 public class EditVideoActivity extends BaseActivity {
-    private static final int REQUEST_VIDEO_PICK = 101;
     private static final int REQUEST_IMAGE_PICK = 1;
 
     private EditText titleEditText;
     private EditText descriptionEditText;
+    private ImageView thumbnailImageView;
     private video currentVideo;
     private user loggedInUser;
-    private Uri selectedVideoUri;
     private Uri selectedImageUri;
 
     @Override
@@ -34,8 +34,8 @@ public class EditVideoActivity extends BaseActivity {
         // Initialize views
         titleEditText = findViewById(R.id.titleEditText);
         descriptionEditText = findViewById(R.id.descriptionEditText);
+        thumbnailImageView = findViewById(R.id.thumbnailImageView);
         Button saveButton = findViewById(R.id.saveButton);
-        Button replaceButton = findViewById(R.id.replaceButton);
         Button deleteButton = findViewById(R.id.deleteButton);
         Button pickThumbnailButton = findViewById(R.id.pickThumbnailButton);
 
@@ -49,6 +49,11 @@ public class EditVideoActivity extends BaseActivity {
         if (currentVideo != null) {
             titleEditText.setText(currentVideo.getTitle());
             descriptionEditText.setText(currentVideo.getDescription());
+            if (currentVideo.getThumbnailUrl() != null) {
+                thumbnailImageView.setImageURI(Uri.parse(currentVideo.getThumbnailUrl()));
+            } else {
+                thumbnailImageView.setImageResource(R.drawable.placeholder_thumbnail);
+            }
         }
 
         // Set the save button listener
@@ -65,15 +70,12 @@ public class EditVideoActivity extends BaseActivity {
                         // Update the video object
                         currentVideo.setTitle(newTitle);
                         currentVideo.setDescription(newDescription);
-                        if (selectedVideoUri != null) {
-                            currentVideo.setVideoUrl(selectedVideoUri.toString());
-                        }
                         if (selectedImageUri != null) {
                             currentVideo.setThumbnailUrl(selectedImageUri.toString());
                         }
 
                         // Update the video in VideoManager
-                        VideoManager.getInstance().updateVideo(currentVideo ,originVideo );
+                        VideoManager.getInstance().updateVideo(currentVideo, originVideo);
 
                         // Show a confirmation message
                         Toast.makeText(this, "Video updated", Toast.LENGTH_SHORT).show();
@@ -86,12 +88,6 @@ public class EditVideoActivity extends BaseActivity {
                     })
                     .setNegativeButton(android.R.string.no, null)
                     .show();
-        });
-
-        // Set the replace button listener
-        replaceButton.setOnClickListener(v -> {
-            Intent pickVideoIntent = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(pickVideoIntent, REQUEST_VIDEO_PICK);
         });
 
         // Set the delete button listener
@@ -122,17 +118,25 @@ public class EditVideoActivity extends BaseActivity {
             Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(pickPhoto, REQUEST_IMAGE_PICK);
         });
+
+        // Request focus and show keyboard when EditText is clicked
+        View.OnFocusChangeListener onFocusChangeListener = (v, hasFocus) -> {
+            if (hasFocus) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                imm.showSoftInput(v, InputMethodManager.SHOW_IMPLICIT);
+            }
+        };
+
+        titleEditText.setOnFocusChangeListener(onFocusChangeListener);
+        descriptionEditText.setOnFocusChangeListener(onFocusChangeListener);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_VIDEO_PICK && resultCode == RESULT_OK && data != null) {
-            selectedVideoUri = data.getData();
-            Toast.makeText(this, "New video selected", Toast.LENGTH_SHORT).show();
-        } else if (requestCode == REQUEST_IMAGE_PICK && resultCode == RESULT_OK && data != null) {
+        if (requestCode == REQUEST_IMAGE_PICK && resultCode == RESULT_OK && data != null) {
             selectedImageUri = data.getData();
+            thumbnailImageView.setImageURI(selectedImageUri);
             Toast.makeText(this, "New thumbnail selected", Toast.LENGTH_SHORT).show();
         }
     }

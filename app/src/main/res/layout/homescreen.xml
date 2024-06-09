@@ -18,16 +18,19 @@
         />
 
     <!-- Search View -->
+
+    <!-- SwipeRefreshLayout and RecyclerView for swiping videos -->
+
     <SearchView
         android:id="@+id/searchView"
-        android:layout_width="200dp"
+        android:layout_width="371dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="16dp" />
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="14dp"
+        android:background="@color/white" />
 
-    <!-- SwipeRefreshLayout and RecyclerView for swiping videos -->
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
@@ -50,14 +53,15 @@
     <!-- Switch Mode -->
 
     <!-- Bottom Navigation -->
+
     <Switch
         android:id="@+id/switch1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/imageViewYouTube"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="-29dp"
+        android:layout_marginEnd="11dp"
         android:text="Night Mode" />
 
     <RelativeLayout

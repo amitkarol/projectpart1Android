@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -11,12 +10,10 @@
         android:layout_width="420dp"
         android:layout_height="228dp"
         android:background="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@+id/titleTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- VideoView with fixed size -->
         <VideoView
             android:id="@+id/videoView"
             android:layout_width="408dp"
@@ -30,9 +27,58 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:onClick="onPauseResumeButtonClick"
-            android:text="Pause"
+            android:src="@drawable/play_svgrepo_com"
             android:textSize="12sp" />
     </FrameLayout>
+
+    <!-- Like Button -->
+    <Button
+        android:id="@+id/likeButton"
+        android:layout_width="113dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:onClick="onLikeButtonClick"
+        android:text="0 likes"
+        android:backgroundTint="#D3D3D3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/videoFrame" />
+
+    <!-- Share Button -->
+    <Button
+        android:id="@+id/shareButton"
+        android:layout_width="112dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:drawableStart="@drawable/share"
+        android:onClick="onShareButtonClick"
+        android:text="Share"
+        android:backgroundTint="#D3D3D3"
+        app:layout_constraintStart_toEndOf="@id/likeButton"
+        app:layout_constraintTop_toBottomOf="@id/videoFrame" />
+
+    <!-- Edit Button -->
+    <LinearLayout
+        android:id="@+id/editButtonContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toEndOf="@id/shareButton"
+        app:layout_constraintTop_toBottomOf="@id/videoFrame">
+
+        <Button
+            android:id="@+id/editButton"
+            android:layout_width="48dp"
+            android:layout_height="49dp"
+            android:background="?attr/selectableItemBackground"
+            android:drawableTop="@drawable/threedots"
+            android:gravity="center"
+            android:backgroundTint="#D3D3D3"
+            android:onClick="onEditButtonClick" />
+    </LinearLayout>
 
     <!-- Description TextView -->
     <TextView
@@ -40,7 +86,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:text="Title"
         android:textColor="@color/black"
@@ -49,7 +95,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/videoFrame" />
+        app:layout_constraintTop_toBottomOf="@+id/likeButton" />
 
     <TextView
         android:id="@+id/descriptionTextView"
@@ -94,76 +140,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/channelTextView" />
 
-    <!-- Like Button -->
-    <Button
-        android:id="@+id/likeButton"
-        android:layout_width="113dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:onClick="onLikeButtonClick"
-        android:text="0 likes"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewCountTextView" />
-
-    <!-- Share Button -->
-    <Button
-        android:id="@+id/shareButton"
-        android:layout_width="112dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:drawableStart="@drawable/share"
-        android:onClick="onShareButtonClick"
-        android:text="Share"
-        app:layout_constraintStart_toEndOf="@id/likeButton"
-        app:layout_constraintTop_toBottomOf="@id/viewCountTextView" />
-
-    <!-- Edit Button -->
-    <LinearLayout
-        android:id="@+id/editButtonContainer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:orientation="vertical"
-        app:layout_constraintStart_toEndOf="@id/shareButton"
-        app:layout_constraintTop_toBottomOf="@id/viewCountTextView">
-
-        <Button
-            android:id="@+id/editButton"
-            android:layout_width="48dp"
-            android:layout_height="49dp"
-            android:background="?attr/selectableItemBackground"
-            android:drawableTop="@drawable/threedots"
-            android:gravity="center"
-
-            android:onClick="onEditButtonClick" />
-    </LinearLayout>
-
-    <!-- Add Comment Button -->
-    <Button
-        android:id="@+id/addCommentButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:onClick="onAddCommentButtonClick"
-        android:text="Add Comment"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editButtonContainer" />
-
     <!-- Comments Button with Comment Count -->
     <Button
         android:id="@+id/commentsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:onClick="onCommentsButtonClick"
-        android:text="Comments (0)"
+        android:text="Comments"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/addCommentButton" />
+        app:layout_constraintTop_toBottomOf="@id/viewCountTextView" />
 
     <!-- FrameLayout for CommentsFragment -->
     <FrameLayout

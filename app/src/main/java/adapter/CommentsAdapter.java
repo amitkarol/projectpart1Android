@@ -1,19 +1,23 @@
 package adapter;
 
 import android.app.AlertDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.Fragments.EditCommentDialog;
 import com.example.myapplication.R;
 import com.example.myapplication.entities.Comment;
-import com.example.myapplication.Fragments.EditCommentDialog;
+import com.example.myapplication.entities.user;
 
 import java.util.List;
 
@@ -21,10 +25,12 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
 
     private List<Comment> commentList;
     private FragmentActivity activity;
+    private user loggedInUser;
 
-    public CommentsAdapter(FragmentActivity activity, List<Comment> commentList) {
+    public CommentsAdapter(FragmentActivity activity, List<Comment> commentList, user loggedInUser) {
         this.activity = activity;
         this.commentList = commentList;
+        this.loggedInUser = loggedInUser;
     }
 
     @NonNull
@@ -38,12 +44,32 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
         Comment comment = commentList.get(position);
-        holder.userTextView.setText(comment.getUser());
-        holder.commentTextView.setText(comment.getComment());
+        holder.userTextView.setText(comment.getUsername());
+        holder.commentTextView.setText(comment.getText());
         holder.timestampTextView.setText(comment.getTimestamp());
 
-        holder.deleteButton.setOnClickListener(v -> showDeleteConfirmationDialog(holder.getAdapterPosition()));
-        holder.editButton.setOnClickListener(v -> showEditCommentDialog(holder.getAdapterPosition()));
+        // Set user image
+        if (comment.getPhotoUri() != null) {
+            holder.userImageView.setImageURI(Uri.parse(comment.getPhotoUri()));
+        } else {
+            holder.userImageView.setImageResource(R.drawable.person);
+        }
+
+        holder.deleteButton.setOnClickListener(v -> {
+            if (loggedInUser.getEmail().equals("testuser@example.com")) {
+                redirectToLogin();
+                return;
+            }
+            showDeleteConfirmationDialog(holder.getAdapterPosition());
+        });
+
+        holder.editButton.setOnClickListener(v -> {
+            if (loggedInUser.getEmail().equals("testuser@example.com")) {
+                redirectToLogin();
+                return;
+            }
+            showEditCommentDialog(holder.getAdapterPosition());
+        });
     }
 
     @Override
@@ -63,7 +89,6 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     private void deleteComment(int position) {
         commentList.remove(position);
         notifyItemRemoved(position);
-        // Optionally, notify other components or update the underlying data
     }
 
     private void showEditCommentDialog(int position) {
@@ -75,10 +100,16 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         dialog.show(activity.getSupportFragmentManager(), "EditCommentDialog");
     }
 
+    private void redirectToLogin() {
+        Intent loginIntent = new Intent(activity, com.example.myapplication.login.class);
+        activity.startActivity(loginIntent);
+    }
+
     public static class CommentViewHolder extends RecyclerView.ViewHolder {
         public TextView userTextView;
         public TextView commentTextView;
         public TextView timestampTextView;
+        public ImageView userImageView;
         public ImageButton editButton;
         public ImageButton deleteButton;
 
@@ -87,6 +118,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
             userTextView = view.findViewById(R.id.userTextView);
             commentTextView = view.findViewById(R.id.commentTextView);
             timestampTextView = view.findViewById(R.id.timestampTextView);
+            userImageView = view.findViewById(R.id.userImageView);
             editButton = view.findViewById(R.id.editButton);
             deleteButton = view.findViewById(R.id.deleteButton);
         }

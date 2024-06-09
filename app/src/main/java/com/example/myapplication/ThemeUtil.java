@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -79,7 +80,7 @@ public class ThemeUtil {
                 View child = viewGroup.getChildAt(i);
                 changeBackgroundColor(child, backgroundColor);
             }
-        } else {
+        } else if (!(view instanceof Button)) { // Skip Button views
             view.setBackgroundColor(backgroundColor);
         }
     }
@@ -106,7 +107,9 @@ public class ThemeUtil {
                 ((EditText) view).setTextColor(textColor);
                 ((EditText) view).setHintTextColor(hintTextColor);
             }
-            view.setBackgroundColor(backgroundColor);
+            if (!(view instanceof Button)) { // Skip Button views
+                view.setBackgroundColor(backgroundColor);
+            }
         }
     }
 

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public class video implements Serializable {
+    private String id; // Add this line
     private String title;
     private String description;
     private String thumbnailUrl; // For external images
@@ -18,7 +19,8 @@ public class video implements Serializable {
     private Map<String, Boolean> userLikes; // Track likes per user
     private List<Comment> comments; // Add this line
 
-    public video(String title, String description, String thumbnailUrl, int thumbnailResId, String videoUrl, String channelName, int viewCount, int likeCount) {
+    public video(String id, String title, String description, String thumbnailUrl, int thumbnailResId, String videoUrl, String channelName, int viewCount, int likeCount) {
+        this.id = id; // Add this line
         this.title = title;
         this.description = description;
         this.thumbnailUrl = thumbnailUrl;
@@ -39,6 +41,7 @@ public class video implements Serializable {
 
     // Copy constructor
     public video(video original) {
+        this.id = original.id; // Add this line
         this.title = original.title;
         this.description = original.description;
         this.thumbnailUrl = original.thumbnailUrl;
@@ -51,6 +54,14 @@ public class video implements Serializable {
     }
 
     // Getters and setters
+
+    public String getId() { // Add this method
+        return id;
+    }
+
+    public void setId(String id) { // Add this method
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -157,6 +168,7 @@ public class video implements Serializable {
     @Override
     public String toString() {
         return "video{" +
+                "id='" + id + '\'' + // Add this line
                 "title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", thumbnailUrl='" + thumbnailUrl + '\'' +

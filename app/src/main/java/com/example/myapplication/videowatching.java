@@ -12,11 +12,11 @@ import android.widget.VideoView;
 import androidx.core.view.GestureDetectorCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.myapplication.Fragments.ShareFragment;
 import com.example.myapplication.entities.VideoManager;
 import com.example.myapplication.entities.video;
 import com.example.myapplication.entities.user;
 import com.example.myapplication.Fragments.Comments;
-import com.example.myapplication.Fragments.AddCommentDialog;
 
 public class videowatching extends FragmentActivity {
 
@@ -55,7 +55,6 @@ public class videowatching extends FragmentActivity {
         likeButton = findViewById(R.id.likeButton);
         shareButton = findViewById(R.id.shareButton);
         commentsButton = findViewById(R.id.commentsButton);
-        addCommentButton = findViewById(R.id.addCommentButton);
         editButton = findViewById(R.id.editButton);
         pauseResumeButton = findViewById(R.id.pauseResumeButton);
 
@@ -65,8 +64,17 @@ public class videowatching extends FragmentActivity {
         // Get the data passed from homescreen activity
         Intent intent = getIntent();
         if (intent != null) {
-            String title = intent.getStringExtra("title");
-            currentVideo = getVideoByTitle(title);
+            Uri data = intent.getData();
+            if (data != null) {
+                // Handle deep link
+                String videoId = data.getQueryParameter("id");
+                currentVideo = getVideoById(videoId);
+            } else {
+                // Handle normal intent
+                String title = intent.getStringExtra("title");
+                currentVideo = getVideoByTitle(title);
+            }
+
             loggedInUser = (user) intent.getSerializableExtra("user");
 
             if (currentVideo != null) {
@@ -87,6 +95,10 @@ public class videowatching extends FragmentActivity {
 
         // Like button listener
         likeButton.setOnClickListener(v -> {
+            if (loggedInUser.getEmail().equals("testuser@example.com")) {
+                redirectToLogin();
+                return;
+            }
             if (currentVideo != null && loggedInUser != null) {
                 if (currentVideo.hasLiked(loggedInUser.getEmail())) {
                     currentVideo.unlikeVideo(loggedInUser.getEmail());
@@ -99,14 +111,15 @@ public class videowatching extends FragmentActivity {
 
         // Edit button listener
         editButton.setOnClickListener(v -> {
-            if (currentVideo != null && !loggedInUser.getEmail().equals("testuser@example.com")) {
+            if (loggedInUser.getEmail().equals("testuser@example.com")) {
+                redirectToLogin();
+                return;
+            }
+            if (currentVideo != null) {
                 Intent editIntent = new Intent(videowatching.this, EditVideoActivity.class);
                 editIntent.putExtra("video", currentVideo);
                 editIntent.putExtra("user", loggedInUser);
                 startActivity(editIntent);
-            } else {
-                Intent login = new Intent(videowatching.this, login.class);
-                startActivity(login);
             }
         });
 
@@ -123,25 +136,17 @@ public class videowatching extends FragmentActivity {
 
         // Comments button listener
         commentsButton.setOnClickListener(v -> {
-            Comments commentsFragment = new Comments(currentVideo);
+            Comments commentsFragment = new Comments(currentVideo, loggedInUser);
             commentsFragment.show(getSupportFragmentManager(), "CommentsFragment");
         });
 
-        // Add Comment button listener
-        addCommentButton.setOnClickListener(v -> {
-            if (loggedInUser.getEmail().equals("testuser@example.com")) {
-                Intent login = new Intent(videowatching.this, login.class);
-                startActivity(login);
-            } else {
-                AddCommentDialog addCommentDialog = new AddCommentDialog(this, currentVideo, loggedInUser, newComment -> {
-                    // Update the UI or perform actions after the comment is added
-                    updateCommentsButton();
-                });
-                addCommentDialog.show();
+        // Share button listener
+        shareButton.setOnClickListener(v -> {
+            if (currentVideo != null) {
+                ShareFragment shareFragment = new ShareFragment(currentVideo);
+                shareFragment.show(getSupportFragmentManager(), "ShareFragment");
             }
         });
-        // Initial update of comments button
-        updateCommentsButton();
     }
 
     private void applyThemeToViews() {
@@ -154,7 +159,6 @@ public class videowatching extends FragmentActivity {
         likeButton.setTextColor(textColor);
         shareButton.setTextColor(textColor);
         commentsButton.setTextColor(textColor);
-        addCommentButton.setTextColor(textColor);
         editButton.setTextColor(textColor);
         pauseResumeButton.setTextColor(textColor);
     }
@@ -173,6 +177,15 @@ public class videowatching extends FragmentActivity {
             likeButton.setText(hasLiked ? "Unlike (" + likeCount + ")" : "Like (" + likeCount + ")");
             likeButton.setCompoundDrawablesWithIntrinsicBounds(hasLiked ? R.drawable.unlike : R.drawable.like, 0, 0, 0);
         }
+    }
+
+    private video getVideoById(String id) {
+        for (video video : VideoManager.getInstance().getVideoList()) {
+            if (video.getId().equals(id)) {
+                return video;
+            }
+        }
+        return null;
     }
 
     private video getVideoByTitle(String title) {
@@ -210,5 +223,10 @@ public class videowatching extends FragmentActivity {
     private void onSwipeDown() {
         // Go back to the previous activity
         finish();
+    }
+
+    private void redirectToLogin() {
+        Intent loginIntent = new Intent(videowatching.this, login.class);
+        startActivity(loginIntent);
     }
 }

@@ -29,13 +29,13 @@ public class EditCommentDialog extends DialogFragment {
         dialog.setContentView(R.layout.dialog_edit_comment);
 
         EditText commentEditText = dialog.findViewById(R.id.commentEditText);
-        commentEditText.setText(comment.getComment());
+        commentEditText.setText(comment.getText());
 
         Button saveButton = dialog.findViewById(R.id.saveButton);
         saveButton.setOnClickListener(v -> {
             String updatedCommentText = commentEditText.getText().toString().trim();
             if (!updatedCommentText.isEmpty()) {
-                comment.setComment(updatedCommentText);
+                comment.setText(updatedCommentText);
                 listener.onCommentEdited(comment);
                 dismiss();
             }

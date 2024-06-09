@@ -1,18 +1,20 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".uploadvideo">
 
     <TextView
         android:id="@+id/editTextText8"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
-        android:ems="10"
-        android:inputType="text"
         android:text="Upload video"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/closeButton"
@@ -30,7 +32,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/editTextText8" />
 
-    <!-- Add Upload Video Button -->
     <Button
         android:id="@+id/uploadVideoButton"
         android:layout_width="wrap_content"
@@ -38,11 +39,10 @@
         android:layout_marginTop="32dp"
         android:text="Upload Video"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextText8" />
 
-    <!-- Add VideoView to display the selected video -->
     <VideoView
         android:id="@+id/videoView"
         android:layout_width="0dp"
@@ -52,9 +52,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/uploadVideoButton"
         app:layout_constraintBottom_toTopOf="@+id/continueButton"
-        tools:ignore="MissingConstraints" />
+        android:background="#000000" />
 
-    <!-- Add Continue Button -->
     <Button
         android:id="@+id/continueButton"
         android:layout_width="wrap_content"
@@ -64,5 +63,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
