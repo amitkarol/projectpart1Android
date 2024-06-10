@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -32,7 +33,7 @@ public class videowatching extends FragmentActivity {
     private Button commentsButton;
     private Button addCommentButton;
     private Button editButton;
-    private Button pauseResumeButton;
+    private ImageButton pauseResumeButton;
     private video currentVideo;
     private user loggedInUser;
     private GestureDetectorCompat gestureDetector;
@@ -127,10 +128,10 @@ public class videowatching extends FragmentActivity {
         pauseResumeButton.setOnClickListener(v -> {
             if (videoView.isPlaying()) {
                 videoView.pause();
-                pauseResumeButton.setText("Resume");
+                pauseResumeButton.setImageResource(R.drawable.play); // Use the resume drawable
             } else {
                 videoView.start();
-                pauseResumeButton.setText("Pause");
+                pauseResumeButton.setImageResource(R.drawable.pause); // Use the pause drawable
             }
         });
 
@@ -160,7 +161,7 @@ public class videowatching extends FragmentActivity {
         shareButton.setTextColor(textColor);
         commentsButton.setTextColor(textColor);
         editButton.setTextColor(textColor);
-        pauseResumeButton.setTextColor(textColor);
+        pauseResumeButton.setColorFilter(textColor); // Adjust color filter for the ImageButton
     }
 
     private void updateCommentsButton() {

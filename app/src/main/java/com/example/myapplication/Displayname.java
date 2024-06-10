@@ -65,8 +65,6 @@ public class Displayname extends BaseActivity {
                 Intent homescreenIntent = new Intent(Displayname.this, homescreen.class);
                 homescreenIntent.putExtra("user", user);
 
-                Log.d(TAG, "Switching to homescreen activity with user: " + user.toString());
-
                 startActivity(homescreenIntent);
             });
             Button buttonUploadPhoto = findViewById(R.id.buttonUploadPhoto);

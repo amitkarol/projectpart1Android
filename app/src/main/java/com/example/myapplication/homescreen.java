@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -62,8 +63,7 @@ public class homescreen extends Activity {
         loggedInUser = (user) getIntent().getSerializableExtra("user");
         if (loggedInUser == null) {
             Uri person = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.person);
-            loggedInUser = new user("Test", "User", "testuser@example.com", "Password@123", "TestUser", person.toString()
-            );
+            loggedInUser = new user("Test", "User", "testuser@example.com", "Password@123", "TestUser", person.toString());
         }
 
         // Display user photo
@@ -103,9 +103,16 @@ public class homescreen extends Activity {
         // Click the button to upload video and continue to the page of upload video
         Button buttonUpload = findViewById(R.id.buttonUpload);
         buttonUpload.setOnClickListener(v -> {
-            Intent uploadIntent = new Intent(this, uploadvideo.class);
-            uploadIntent.putExtra("user", loggedInUser); // Pass the user object
-            startActivity(uploadIntent);
+            if ("testuser@example.com".equals(loggedInUser.getEmail())) {
+                // Redirect to login screen if the test user is connected
+                Intent loginIntent = new Intent(homescreen.this, login.class);
+                startActivity(loginIntent);
+                Toast.makeText(this, "Please log in to upload a video", Toast.LENGTH_SHORT).show();
+            } else {
+                Intent uploadIntent = new Intent(this, uploadvideo.class);
+                uploadIntent.putExtra("user", loggedInUser); // Pass the user object
+                startActivity(uploadIntent);
+            }
         });
 
         // Initialize UI elements for manual theme change
@@ -187,6 +194,7 @@ public class homescreen extends Activity {
         changeTextColor(homeScreenLayout, textColor);
         ThemeUtil.applyThemeToRecyclerView(recyclerView, isNightMode);
     }
+
     private void changeTextColor(View view, int color) {
         if (view instanceof ViewGroup) {
             ViewGroup viewGroup = (ViewGroup) view;
