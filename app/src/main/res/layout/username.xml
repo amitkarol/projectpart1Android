@@ -66,15 +66,15 @@
     <Button
         android:id="@+id/second_button"
         style="@style/RedButton"
-        android:layout_width="155dp"
-        android:layout_height="62dp"
-        android:layout_marginTop="140dp"
+        android:layout_width="119dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="212dp"
         android:background="@color/custom_red"
         android:padding="16dp"
         android:text="next"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.894"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextText2" />
 

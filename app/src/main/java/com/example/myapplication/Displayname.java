@@ -1,8 +1,10 @@
 package com.example.myapplication;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -13,6 +15,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import com.example.myapplication.entities.user;
 import com.example.myapplication.entities.UserManager;
 import java.io.ByteArrayOutputStream;
@@ -21,6 +26,7 @@ public class Displayname extends BaseActivity {
 
     private static final int REQUEST_IMAGE_PICK = 102;
     private static final int REQUEST_IMAGE_CAPTURE = 123;
+    private static final int REQUEST_CAMERA_PERMISSION = 200;
 
     private EditText displaynameEdittext;
     private Uri selectedImageUri;
@@ -78,12 +84,29 @@ public class Displayname extends BaseActivity {
         buttonTakePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+                if (ContextCompat.checkSelfPermission(Displayname.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+                        || ContextCompat.checkSelfPermission(Displayname.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(Displayname.this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CAMERA_PERMISSION);
+                } else {
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+                }
             }
         });
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CAMERA_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+            } else {
+                Toast.makeText(this, "Camera permission is required to take photos", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -95,12 +118,12 @@ public class Displayname extends BaseActivity {
                 ImageView imageView = findViewById(R.id.imageViewPhoto);
                 imageView.setImageURI(selectedImageUri);
                 imageView.setVisibility(View.VISIBLE);
-            } else if (requestCode == REQUEST_IMAGE_CAPTURE) {
-                Bitmap photo = (Bitmap)data.getExtras().get("data");
+            } else if (requestCode == REQUEST_IMAGE_CAPTURE && data != null) {
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
                 ImageView imageView = findViewById(R.id.imageViewPhoto);
                 imageView.setImageBitmap(photo);
                 imageView.setVisibility(View.VISIBLE);
-                selectedImageUri = getImageUri(this , photo);
+                selectedImageUri = getImageUri(this, photo);
             }
         }
     }
@@ -112,4 +135,3 @@ public class Displayname extends BaseActivity {
         return Uri.parse(path);
     }
 }
-

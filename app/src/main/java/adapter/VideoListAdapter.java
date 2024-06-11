@@ -3,8 +3,9 @@ package adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.ImageDecoder;
 import android.net.Uri;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
@@ -61,6 +63,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
     }
 
     @Override
+    @RequiresApi(api = Build.VERSION_CODES.P)
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         video video = filteredVideoList.get(position);
 
@@ -72,9 +75,10 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
             Uri uri = Uri.parse(video.getThumbnailUrl());
             try {
                 InputStream inputStream = context.getContentResolver().openInputStream(uri);
-                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                holder.thumbnailImageView.setImageBitmap(bitmap);
                 if (inputStream != null) {
+                    ImageDecoder.Source source = ImageDecoder.createSource(context.getContentResolver(), uri);
+                    Bitmap bitmap = ImageDecoder.decodeBitmap(source);
+                    holder.thumbnailImageView.setImageBitmap(bitmap);
                     inputStream.close();
                 }
             } catch (Exception e) {
@@ -90,9 +94,10 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
             Uri uri = Uri.parse(video.getUser().getPhotoUri());
             try {
                 InputStream inputStream = context.getContentResolver().openInputStream(uri);
-                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                holder.userPhotoImageView.setImageBitmap(bitmap);
                 if (inputStream != null) {
+                    ImageDecoder.Source source = ImageDecoder.createSource(context.getContentResolver(), uri);
+                    Bitmap bitmap = ImageDecoder.decodeBitmap(source);
+                    holder.userPhotoImageView.setImageBitmap(bitmap);
                     inputStream.close();
                 }
             } catch (Exception e) {

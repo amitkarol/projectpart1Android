@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -109,7 +110,7 @@ public class homescreen extends AppCompatActivity {
                 Toast.makeText(this, "Please log in to upload a video", Toast.LENGTH_SHORT).show();
             } else {
                 Intent uploadIntent = new Intent(this, uploadvideo.class);
-                uploadIntent.putExtra("user", loggedInUser); // Pass the user object
+                uploadIntent.putExtra("user", loggedInUser);
                 startActivity(uploadIntent);
             }
         });

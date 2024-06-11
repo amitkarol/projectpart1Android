@@ -1,6 +1,5 @@
 package com.example.myapplication;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,7 +8,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.entities.VideoManager;
 import com.example.myapplication.entities.video;
@@ -18,8 +20,6 @@ import com.example.myapplication.entities.user;
 import java.util.UUID;
 
 public class detailsofvideo extends BaseActivity {
-
-    private static final int REQUEST_IMAGE_PICK = 1;
 
     private EditText editTextTitle;
     private EditText editTextDescription;
@@ -31,11 +31,22 @@ public class detailsofvideo extends BaseActivity {
     private user user;
     private Uri selectedImageUri;
 
+    private final ActivityResultLauncher<Intent> pickImageLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    selectedImageUri = result.getData().getData();
+                    imageViewThumbnail.setImageURI(selectedImageUri);
+                }
+            }
+    );
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ThemeUtil.applyTheme(this);
         setContentView(R.layout.detailsofvideo);
+
         editTextTitle = findViewById(R.id.editTextTitle);
         editTextDescription = findViewById(R.id.editTextDescription);
         buttonSaveDetails = findViewById(R.id.buttonSaveDetails);
@@ -51,7 +62,7 @@ public class detailsofvideo extends BaseActivity {
 
         buttonPickThumbnail.setOnClickListener(v -> {
             Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(pickPhoto, REQUEST_IMAGE_PICK);
+            pickImageLauncher.launch(pickPhoto);
         });
 
         buttonSaveDetails.setOnClickListener(v -> {
@@ -77,14 +88,5 @@ public class detailsofvideo extends BaseActivity {
             startActivity(homeIntent);
             finish();
         });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_PICK && resultCode == RESULT_OK && data != null) {
-            selectedImageUri = data.getData();
-            imageViewThumbnail.setImageURI(selectedImageUri);
-        }
     }
 }
