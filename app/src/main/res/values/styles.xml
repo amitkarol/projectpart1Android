@@ -20,4 +20,9 @@
     <style name="AlwaysWhiteBackground">
         <item name="android:background">@color/constant_white</item>
     </style>
+
+    <style name="CircularImageView" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

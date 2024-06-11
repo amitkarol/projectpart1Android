@@ -9,10 +9,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.VideoView;
-
+import com.google.android.material.imageview.ShapeableImageView;
 import androidx.core.view.GestureDetectorCompat;
 import androidx.fragment.app.FragmentActivity;
-
 import com.example.myapplication.Fragments.ShareFragment;
 import com.example.myapplication.entities.VideoManager;
 import com.example.myapplication.entities.video;
@@ -34,6 +33,7 @@ public class videowatching extends FragmentActivity {
     private video currentVideo;
     private user loggedInUser;
     private GestureDetectorCompat gestureDetector;
+    private ShapeableImageView userPhotoImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +55,7 @@ public class videowatching extends FragmentActivity {
         commentsButton = findViewById(R.id.commentsButton);
         editButton = findViewById(R.id.editButton);
         pauseResumeButton = findViewById(R.id.pauseResumeButton);
+        userPhotoImageView = findViewById(R.id.userPhotoImageView);
 
         // Apply theme to all relevant views
         applyThemeToViews();
@@ -83,6 +84,10 @@ public class videowatching extends FragmentActivity {
                 channelTextView.setText(currentVideo.getUser().getEmail());
                 videoView.setVideoPath(currentVideo.getVideoUrl());
                 videoView.start();
+
+                // Set user photo
+                Uri photoUri = Uri.parse(currentVideo.getUser().getPhotoUri());
+                userPhotoImageView.setImageURI(photoUri);
 
                 // Update view count
                 currentVideo.incrementViewCount();
@@ -160,7 +165,6 @@ public class videowatching extends FragmentActivity {
         editButton.setTextColor(textColor);
         pauseResumeButton.setColorFilter(textColor); // Adjust color filter for the ImageButton
     }
-
 
     private void updateLikeButton() {
         if (currentVideo != null && loggedInUser != null) {
