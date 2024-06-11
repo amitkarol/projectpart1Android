@@ -5,14 +5,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Comment implements Serializable {
-    private String username;
+    private user user;
     private String text;
     private String timestamp;
     private String photoUri;
 
     // Constructor
-    public Comment(String username, String text, String photoUri) {
-        this.username = username;
+    public Comment(user user, String text, String photoUri) {
+        this.user = user;
         this.text = text;
         this.photoUri = photoUri;
         this.timestamp = getCurrentTimestamp();
@@ -28,12 +28,12 @@ public class Comment implements Serializable {
     }
 
     // Other getters and setters
-    public String getUsername() {
-        return username;
+    public user getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(user user) {
+        this.user = user;
     }
 
     public String getText() {

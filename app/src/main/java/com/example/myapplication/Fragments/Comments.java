@@ -2,7 +2,6 @@ package com.example.myapplication.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,8 +26,6 @@ import adapter.CommentsAdapter;
 import java.util.List;
 
 public class Comments extends DialogFragment {
-
-    private static final String TAG = "CommentsFragment";
 
     private RecyclerView commentsRecyclerView;
     private CommentsAdapter commentsAdapter;
@@ -77,7 +74,7 @@ public class Comments extends DialogFragment {
 
         String commentText = commentEditText.getText().toString().trim();
         if (!commentText.isEmpty()) {
-            Comment newComment = new Comment(loggedInUser.getDisplayName(), commentText, loggedInUser.getPhotoUri());
+            Comment newComment = new Comment(loggedInUser, commentText, loggedInUser.getPhotoUri());
             currentVideo.addComment(newComment);
             commentsAdapter.notifyItemInserted(commentList.size() - 1);
             commentsRecyclerView.scrollToPosition(commentList.size() - 1);

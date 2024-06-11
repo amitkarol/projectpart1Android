@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.app.Activity;
 
-import com.example.myapplication.ThemeUtil;
 
 public class ThemeChangeReceiver extends BroadcastReceiver {
     @Override

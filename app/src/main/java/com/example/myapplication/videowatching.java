@@ -21,8 +21,6 @@ import com.example.myapplication.Fragments.Comments;
 
 public class videowatching extends FragmentActivity {
 
-    private static final String TAG = "videowatching";
-
     private TextView titleTextView;
     private TextView descriptionTextView;
     private TextView channelTextView;
@@ -31,7 +29,6 @@ public class videowatching extends FragmentActivity {
     private Button likeButton;
     private Button shareButton;
     private Button commentsButton;
-    private Button addCommentButton;
     private Button editButton;
     private ImageButton pauseResumeButton;
     private video currentVideo;
@@ -82,8 +79,8 @@ public class videowatching extends FragmentActivity {
                 // Set data to views
                 titleTextView.setText(currentVideo.getTitle());
                 descriptionTextView.setText(currentVideo.getDescription());
-                channelTextView.setText(currentVideo.getChannelName());
                 viewCountTextView.setText("Views " + currentVideo.getViewCount());
+                channelTextView.setText(currentVideo.getUser().getEmail());
                 videoView.setVideoPath(currentVideo.getVideoUrl());
                 videoView.start();
 
@@ -164,18 +161,12 @@ public class videowatching extends FragmentActivity {
         pauseResumeButton.setColorFilter(textColor); // Adjust color filter for the ImageButton
     }
 
-    private void updateCommentsButton() {
-        if (currentVideo != null) {
-            int commentCount = currentVideo.getComments().size();
-            commentsButton.setText("Comments (" + commentCount + ")");
-        }
-    }
 
     private void updateLikeButton() {
         if (currentVideo != null && loggedInUser != null) {
             boolean hasLiked = currentVideo.hasLiked(loggedInUser.getEmail());
             int likeCount = currentVideo.getLikeCount();
-            likeButton.setText(hasLiked ? "Unlike (" + likeCount + ")" : "Like (" + likeCount + ")");
+            likeButton.setText(likeCount + " likes");
             likeButton.setCompoundDrawablesWithIntrinsicBounds(hasLiked ? R.drawable.unlike : R.drawable.like, 0, 0, 0);
         }
     }

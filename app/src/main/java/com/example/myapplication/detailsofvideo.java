@@ -15,6 +15,8 @@ import com.example.myapplication.entities.VideoManager;
 import com.example.myapplication.entities.video;
 import com.example.myapplication.entities.user;
 
+import java.util.UUID;
+
 public class detailsofvideo extends BaseActivity {
 
     private static final int REQUEST_IMAGE_PICK = 1;
@@ -45,7 +47,7 @@ public class detailsofvideo extends BaseActivity {
         String videoUrl = intent.getStringExtra("videoUrl");
         user = (user) intent.getSerializableExtra("user");
 
-        selectedVideo = new video(videoUrl);
+        selectedVideo = new video(UUID.randomUUID().toString(), "", "", "", 0, videoUrl, user, 0, 0);
 
         buttonPickThumbnail.setOnClickListener(v -> {
             Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -64,15 +66,14 @@ public class detailsofvideo extends BaseActivity {
 
             selectedVideo.setTitle(title);
             selectedVideo.setDescription(description);
-            selectedVideo.setChannelName(user.getDisplayName());
             selectedVideo.setThumbnailUrl(selectedImageUri.toString());
 
-            // Update the video in VideoManager
-            VideoManager.getInstance().updateVideo(selectedVideo , selectedVideo);
+            // Add the video to VideoManager
+            VideoManager.getInstance().addVideo(selectedVideo);
 
             // Save the video details and go back to the home screen
             Intent homeIntent = new Intent(detailsofvideo.this, homescreen.class);
-            homeIntent.putExtra("user", user); // Pass the user object
+            homeIntent.putExtra("user", user);
             startActivity(homeIntent);
             finish();
         });

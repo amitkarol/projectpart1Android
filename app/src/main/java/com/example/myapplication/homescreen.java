@@ -11,7 +11,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -101,7 +100,7 @@ public class homescreen extends Activity {
         });
 
         // Click the button to upload video and continue to the page of upload video
-        Button buttonUpload = findViewById(R.id.buttonUpload);
+        ImageView buttonUpload = findViewById(R.id.buttonUpload);
         buttonUpload.setOnClickListener(v -> {
             if ("testuser@example.com".equals(loggedInUser.getEmail())) {
                 // Redirect to login screen if the test user is connected
@@ -124,7 +123,7 @@ public class homescreen extends Activity {
         applyTheme(isNightMode);
 
         modeSwitch = findViewById(R.id.switch1);
-        modeSwitch.setChecked(isNightMode); // Set switch state based on saved preference
+        modeSwitch.setChecked(isNightMode);
 
         modeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             // Save the new theme preference
@@ -193,6 +192,11 @@ public class homescreen extends Activity {
         recyclerView.setBackgroundColor(backgroundColor);
         changeTextColor(homeScreenLayout, textColor);
         ThemeUtil.applyThemeToRecyclerView(recyclerView, isNightMode);
+
+        // Notify the adapter to refresh the theme
+        if (videoAdapter != null) {
+            videoAdapter.refreshTheme();
+        }
     }
 
     private void changeTextColor(View view, int color) {
@@ -206,8 +210,6 @@ public class homescreen extends Activity {
             ((TextView) view).setTextColor(color);
         } else if (view instanceof EditText) {
             ((EditText) view).setTextColor(color);
-        } else if (view instanceof SearchView) {
-            ((SearchView) view).setBackgroundColor(color);
         }
     }
 

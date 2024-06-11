@@ -1,9 +1,7 @@
 package com.example.myapplication.entities;
 
 import android.os.Build;
-
 import com.example.myapplication.R;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -16,7 +14,6 @@ public class VideoManager {
 
     private VideoManager() {
         videoSet = new HashSet<>();
-        // Add initial sample videos
         initializeSampleVideos();
     }
 
@@ -28,81 +25,54 @@ public class VideoManager {
     }
 
     private void initializeSampleVideos() {
-        int videoRawResource1 = R.raw.video1; //dior
-        int videoRawResource2 = R.raw.video2; //snail ice cream
-        int videoRawResource3 = R.raw.video3; //paris
-        int videoRawResource4 = R.raw.policesnail;
-        int videoRawResource5 = R.raw.newrules;
-        int videoRawResource6 = R.raw.disney;
-        int videoRawResource7 = R.raw.lionking;
-        int videoRawResource8 = R.raw.basketballplayer;
-        int videoRawResource9 = R.raw.london;
-        int videoRawResource10 = R.raw.eras;
+        UserManager userManager = UserManager.getInstance();
 
+        user maayan = userManager.validateUser("maayan@gmail.com", "Haha1234!");
+        user idan = userManager.validateUser("idan@gmail.com", "Blabla1234!");
+        user hemi = userManager.validateUser("hemi@gmail.com", "1234Haha!");
+        user amit = userManager.validateUser("amit@gmail.com", "amit1234!");
 
+        int[] videoResources = {R.raw.video1, R.raw.video2, R.raw.video3, R.raw.policesnail, R.raw.newrules,
+                R.raw.disney, R.raw.lionking, R.raw.basketballplayer, R.raw.london, R.raw.eras};
 
-        // Construct the video URL using the resource identifier
-        String videoUrl1 = "android.resource://" + "com.example.myapplication" + "/" + videoRawResource1;
-        String videoUrl2 = "android.resource://" + "com.example.myapplication" + "/" + videoRawResource2;
-        String videoUrl3 = "android.resource://" + "com.example.myapplication" + "/" + videoRawResource3;
-        String videoUrl4 = "android.resource://" + "com.example.myapplication" + "/" + videoRawResource4;
-        String videoUrl5 = "android.resource://" + "com.example.myapplication" + "/" + videoRawResource5;
-        String videoUrl6 = "android.resource://" + "com.example.myapplication" + "/" + videoRawResource6;
-        String videoUrl7 = "android.resource://" + "com.example.myapplication" + "/" + videoRawResource7;
-        String videoUrl8 = "android.resource://" + "com.example.myapplication" + "/" + videoRawResource8;
-        String videoUrl9 = "android.resource://" + "com.example.myapplication" + "/" + videoRawResource9;
-        String videoUrl10 = "android.resource://" + "com.example.myapplication" + "/" + videoRawResource10;
+        String[] videoUrls = new String[videoResources.length];
+        for (int i = 0; i < videoResources.length; i++) {
+            videoUrls[i] = "android.resource://" + "com.example.myapplication" + "/" + videoResources[i];
+        }
 
+        int[] photoResources = {R.drawable.dior, R.drawable.snailicecream, R.drawable.paris, R.drawable.policesnail,
+                R.drawable.newrules, R.drawable.disney, R.drawable.lion, R.drawable.basketball,
+                R.drawable.london, R.drawable.eras};
 
-        // Construct the photo URLs using the resource identifier
-        String photo1 = "android.resource://" + "com.example.myapplication" + "/" + R.drawable.dior;
-        String photo2 = "android.resource://" + "com.example.myapplication" + "/" + R.drawable.snailicecream;
-        String photo3 = "android.resource://" + "com.example.myapplication" + "/" + R.drawable.paris;
-        String photo4 = "android.resource://" + "com.example.myapplication" + "/" + R.drawable.policesnail;
-        String photo5 = "android.resource://" + "com.example.myapplication" + "/" + R.drawable.newrules;
-        String photo6 = "android.resource://" + "com.example.myapplication" + "/" + R.drawable.disney;
-        String photo7 = "android.resource://" + "com.example.myapplication" + "/" + R.drawable.lion;
-        String photo8 = "android.resource://" + "com.example.myapplication" + "/" + R.drawable.basketball;
-        String photo9 = "android.resource://" + "com.example.myapplication" + "/" + R.drawable.london;
-        String photo10 = "android.resource://" + "com.example.myapplication" + "/" + R.drawable.eras;
+        String[] photoUrls = new String[photoResources.length];
+        for (int i = 0; i < photoResources.length; i++) {
+            photoUrls[i] = "android.resource://" + "com.example.myapplication" + "/" + photoResources[i];
+        }
 
+        String[] titles = {"Dior gallery - Paris", "Mr. Snail - Ice cream Guy", "Paris - breakfast at Carette",
+                "Mr. snail - police officer", "New rules - Dua Lipa", "Disneyland",
+                "Lions king Musical London", "Mr. Snail basketball Player", "Leaving London",
+                "You Need To Calm Down - The Eras Tour"};
 
+        String[] descriptions = {"So beautiful", "Mr. Snail's ice cream is the BEST!", "Paris was delicious",
+                "Mr. snail is the BEST police officer", "Best Clip Ever", "Disney was magical",
+                "Hakuna Matata!", "Mr. Snail is the BEST basketball Player", "So sad to leave london",
+                "This night was sparkling"};
 
+        user[] owners = {maayan, hemi, maayan, hemi, amit, amit, amit, hemi, maayan, maayan};
 
-        // Create sample video data with unique IDs
-        video video1 = new video(UUID.randomUUID().toString(), "Dior gallery - Paris", "So beautiful", photo1, R.drawable.dior, videoUrl1, "maayan@gmail.com", 0, 0);
-        video video2 = new video(UUID.randomUUID().toString(), "Mr. Snail - Ice cream Guy", "Mr. Snail's ice cream is the BEST!", photo2, R.drawable.snailicecream, videoUrl2, "hemi@gmail.com", 0, 0);
-        video video3 = new video(UUID.randomUUID().toString(), "Paris - breakfast at Carette", "Paris was delicious", photo3, R.drawable.paris, videoUrl3, "maayan@gmail.com", 0, 0);
-        video video4 = new video(UUID.randomUUID().toString(), "Mr. snail - police officer", "Mr. snail is the BEST police officer", photo4, R.drawable.policesnail, videoUrl4, "hemi@gmail.com", 0, 0);
-        video video5 = new video(UUID.randomUUID().toString(), "New rules - Dua Lipa", "Best Clip Ever", photo5, R.drawable.newrules, videoUrl5, "amit@gmail.com", 0, 0);
-        video video6 = new video(UUID.randomUUID().toString(), "Disneyland", "Disney was magical", photo6, R.drawable.disney, videoUrl6, "amit@gmail.com", 0, 0);
-        video video7 = new video(UUID.randomUUID().toString(), "Lions king Musical London", "Hakuna Matata!", photo7, R.drawable.lion, videoUrl7, "amit@gmail.com", 0, 0);
-        video video8 = new video(UUID.randomUUID().toString(), "Mr. Snail basketball Player", "Mr. Snail is the BEST basketball Player", photo8, R.drawable.basketball, videoUrl8, "hemi@gmail.com", 0, 0);
-        video video9 = new video(UUID.randomUUID().toString(), "Leaving London", "So sad to leave london", photo9, R.drawable.london, videoUrl9, "maayan@gmail.com", 0, 0);
-        video video10 = new video(UUID.randomUUID().toString(), "You Need To Calm Down - The Eras Tour", "This night was sparkling", photo10, R.drawable.eras, videoUrl10, "maayan@gmail.com", 0, 0);
+        int[] views = {1000, 1213, 12323, 2324, 2324, 242, 242, 224, 23132, 2434};
+        int[] likes = {3, 23, 23, 232, 343, 242, 4423, 244, 12, 2342};
 
+        for (int i = 0; i < titles.length; i++) {
+            video newVideo = new video(UUID.randomUUID().toString(), titles[i], descriptions[i], photoUrls[i],
+                    photoResources[i], videoUrls[i], owners[i], views[i], likes[i]);
+            videoSet.add(newVideo);
 
-        // Add comments to videos
-        video1.addComment(new Comment("Hemi", "Great video!", photo1));
-        video1.addComment(new Comment("User2", "Thanks for sharing!", photo2));
-
-        video2.addComment(new Comment("User3", "Very informative.", photo2));
-        video2.addComment(new Comment("User4", "Loved it!", photo3));
-
-        video3.addComment(new Comment("User5", "Amazing content.", photo3));
-        video3.addComment(new Comment("User6", "Keep it up!", photo1));
-
-        // Add videos to the set
-        videoSet.add(video1);
-        videoSet.add(video2);
-        videoSet.add(video3);
-        videoSet.add(video4);
-        videoSet.add(video5);
-        videoSet.add(video6);
-        videoSet.add(video7);
-        videoSet.add(video8);
-        videoSet.add(video9);
-        videoSet.add(video10);
+            // Adding comments to each video
+            Comment comment = new Comment(owners[i], "Great video!", owners[i].getPhotoUri());
+            newVideo.addComment(comment);
+        }
     }
 
     public List<video> getVideoList() {
@@ -131,8 +101,8 @@ public class VideoManager {
         videoSet.add(newVideo);
     }
 
-    public void updateVideo(video updatedVideo , video originvideo) {
-        removeVideo(originvideo);
+    public void updateVideo(video updatedVideo, video originVideo) {
+        removeVideo(originVideo);
         videoSet.add(updatedVideo);
     }
 

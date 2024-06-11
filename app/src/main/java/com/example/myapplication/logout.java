@@ -49,11 +49,8 @@ public class logout extends BaseActivity {
         // Set an OnClickListener to the Logout button
         logoutButton.setOnClickListener(v -> {
             // Navigate back to the login activity
-            Intent homescreenIntent = new Intent(logout.this, homescreen.class);
-            homescreenIntent.putExtra("user" , testUser);
-            // Clear the activity stack to prevent returning to the logout activity
-            homescreenIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(homescreenIntent);
+            Intent loginIntent = new Intent(logout.this, login.class);
+            startActivity(loginIntent);
         });
     }
 }

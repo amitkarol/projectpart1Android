@@ -25,8 +25,8 @@
 
         <ImageButton
             android:id="@+id/pauseResumeButton"
-            android:layout_width="46dp"
-            android:layout_height="34dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_gravity="bottom|start"
             android:layout_marginStart="22dp"
             android:layout_marginBottom="22dp"
@@ -40,8 +40,8 @@
     <!-- Like Button -->
     <Button
         android:id="@+id/likeButton"
-        android:layout_width="113dp"
-        android:layout_height="42dp"
+        android:layout_width="112dp"
+        android:layout_height="48dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:onClick="onLikeButtonClick"
@@ -54,7 +54,7 @@
     <Button
         android:id="@+id/shareButton"
         android:layout_width="112dp"
-        android:layout_height="41dp"
+        android:layout_height="48dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:drawableStart="@drawable/share"

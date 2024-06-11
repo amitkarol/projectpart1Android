@@ -59,7 +59,7 @@ public class password extends BaseActivity {
                 intent.putExtra("firstName", getIntent().getStringExtra("firstName"));
                 intent.putExtra("lastName", getIntent().getStringExtra("lastName"));
                 intent.putExtra("username", getIntent().getStringExtra("username"));
-                intent.putExtra("password", password); // Pass the password entered by the user
+                intent.putExtra("password", password);
                 startActivity(intent);
             }
         });

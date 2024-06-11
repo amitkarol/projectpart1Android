@@ -30,10 +30,10 @@
       </SelectionState>
       <SelectionState runConfigName="newhome">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-06-08T07:20:27.310251400Z">
+        <DropdownSelection timestamp="2024-06-10T23:19:51.547571Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\Amit\.android\avd\Pixel_3a_API_34.avd" />
+              <DeviceId pluginId="PhysicalDevice" identifier="serial=RF8M82XV8WA" />
             </handle>
           </Target>
         </DropdownSelection>

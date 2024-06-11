@@ -31,7 +31,7 @@ public class uploadvideo extends BaseActivity {
         Button closeButton = findViewById(R.id.closeButton);
         closeButton.setOnClickListener(v -> {
             Intent intent = new Intent(this, homescreen.class);
-            intent.putExtra("user", loggedInUser); // Pass the user object
+            intent.putExtra("user", loggedInUser);
             startActivity(intent);
         });
 
@@ -39,17 +39,15 @@ public class uploadvideo extends BaseActivity {
         uploadButton.setOnClickListener(v -> openGallery());
 
         videoView = findViewById(R.id.videoView);
-
-        // Set Z-Order for the VideoView's SurfaceView
         videoView.setZOrderOnTop(true);
 
         Button continueButton = findViewById(R.id.continueButton);
         continueButton.setOnClickListener(v -> {
             if (selectedVideoUri != null) {
-                Log.d("UploadVideo", "Continue button clicked, videoUri: " + selectedVideoUri.toString());
+                Log.d("UploadVideo", "Continue button clicked, videoUri: " + selectedVideoUri);
                 Intent intent = new Intent(this, detailsofvideo.class);
                 intent.putExtra("videoUrl", selectedVideoUri.toString());
-                intent.putExtra("user", loggedInUser); // Pass the user object
+                intent.putExtra("user", loggedInUser);
                 startActivity(intent);
             } else {
                 Log.d("UploadVideo", "No video selected");

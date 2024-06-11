@@ -31,7 +31,6 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
     private Context context;
     private user loggedInUser;
 
-    // Constructor with Context parameter
     public VideoListAdapter(List<video> videoList, Context context, user loggedInUser) {
         this.videoList = videoList;
         this.filteredVideoList = new ArrayList<>(videoList);
@@ -39,15 +38,16 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
         this.loggedInUser = loggedInUser;
     }
 
-    // ViewHolder class
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView thumbnailImageView;
+        ImageView userPhotoImageView;
         TextView titleTextView;
         TextView channelTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             thumbnailImageView = itemView.findViewById(R.id.thumbnailImageView);
+            userPhotoImageView = itemView.findViewById(R.id.userPhotoImageView);
             titleTextView = itemView.findViewById(R.id.titleTextView);
             channelTextView = itemView.findViewById(R.id.channelTextView);
         }
@@ -56,20 +56,18 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Inflate the item layout and return a new ViewHolder
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.video_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        // Bind data to the views in each item
         video video = filteredVideoList.get(position);
 
         holder.titleTextView.setText(video.getTitle());
-        holder.channelTextView.setText(video.getChannelName());
+        holder.channelTextView.setText(video.getUser().getEmail());
 
-        // Check if the thumbnail URL is set and load it, otherwise use the resource ID
+        // Load the video thumbnail
         if (video.getThumbnailUrl() != null && !video.getThumbnailUrl().isEmpty()) {
             Uri uri = Uri.parse(video.getThumbnailUrl());
             try {
@@ -81,11 +79,28 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                // Set a default image or handle the error case
                 holder.thumbnailImageView.setImageResource(R.drawable.dog1);
             }
         } else {
             holder.thumbnailImageView.setImageResource(video.getThumbnailResId());
+        }
+
+        // Load the user photo
+        if (video.getUser() != null && video.getUser().getPhotoUri() != null && !video.getUser().getPhotoUri().isEmpty()) {
+            Uri uri = Uri.parse(video.getUser().getPhotoUri());
+            try {
+                InputStream inputStream = context.getContentResolver().openInputStream(uri);
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                holder.userPhotoImageView.setImageBitmap(bitmap);
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                holder.userPhotoImageView.setImageResource(R.drawable.person);
+            }
+        } else {
+            holder.userPhotoImageView.setImageResource(R.drawable.person);
         }
 
         holder.itemView.setOnClickListener(v -> {
@@ -95,18 +110,16 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
             context.startActivity(intent);
         });
 
-        // Apply the theme to each item view
         boolean isNightMode = ThemeUtil.isNightMode(context);
         ThemeUtil.changeTextColor(holder.itemView, isNightMode);
+        ThemeUtil.changeBackgroundColor(holder.itemView, isNightMode);
     }
 
     @Override
     public int getItemCount() {
-        // Return the size of your dataset
         return filteredVideoList.size();
     }
 
-    // Method to filter the list
     public void filter(String query) {
         filteredVideoList.clear();
         if (query.isEmpty()) {
@@ -118,6 +131,10 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
                 }
             }
         }
+        notifyDataSetChanged();
+    }
+
+    public void refreshTheme() {
         notifyDataSetChanged();
     }
 }

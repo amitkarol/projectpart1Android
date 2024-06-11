@@ -12,4 +12,7 @@
     <color name="colorPrimary">#FF000000</color>
     <color name="colorPrimaryDark">#FF000000</color>
     <color name="colorAccent">#FFFFFFFF</color>
+    <color name="constant_white">#FFFFFF</color>
+    <color name="plus_default_color">#000000</color>
+    <color name="button_red">#FF0000</color>
 </resources>

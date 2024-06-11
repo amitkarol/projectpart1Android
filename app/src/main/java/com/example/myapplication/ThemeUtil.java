@@ -80,7 +80,7 @@ public class ThemeUtil {
                 View child = viewGroup.getChildAt(i);
                 changeBackgroundColor(child, backgroundColor);
             }
-        } else if (!(view instanceof Button)) { // Skip Button views
+        } else if (!(view instanceof Button)) {
             view.setBackgroundColor(backgroundColor);
         }
     }
@@ -107,7 +107,7 @@ public class ThemeUtil {
                 ((EditText) view).setTextColor(textColor);
                 ((EditText) view).setHintTextColor(hintTextColor);
             }
-            if (!(view instanceof Button)) { // Skip Button views
+            if (!(view instanceof Button)) {
                 view.setBackgroundColor(backgroundColor);
             }
         }

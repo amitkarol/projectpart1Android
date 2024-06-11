@@ -7,59 +7,53 @@ import java.util.List;
 import java.util.Map;
 
 public class video implements Serializable {
-    private String id; // Add this line
+    private String id;
     private String title;
     private String description;
     private String thumbnailUrl; // For external images
     private int thumbnailResId; // For drawable resource IDs
     private String videoUrl;
-    private String channelName;
+    private user user; // Add this line
     private int viewCount;
     private int likeCount;
     private Map<String, Boolean> userLikes; // Track likes per user
-    private List<Comment> comments; // Add this line
+    private List<Comment> comments;
 
-    public video(String id, String title, String description, String thumbnailUrl, int thumbnailResId, String videoUrl, String channelName, int viewCount, int likeCount) {
-        this.id = id; // Add this line
+    public video(String id, String title, String description, String thumbnailUrl, int thumbnailResId, String videoUrl, user user, int viewCount, int likeCount) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.thumbnailUrl = thumbnailUrl;
         this.thumbnailResId = thumbnailResId;
         this.videoUrl = videoUrl;
-        this.channelName = channelName;
+        this.user = user; // Add this line
         this.viewCount = viewCount;
         this.likeCount = likeCount;
         this.userLikes = new HashMap<>();
-        this.comments = new ArrayList<>(); // Initialize the comments list
-    }
-
-    public video(String videoUrl) {
-        this.videoUrl = videoUrl;
-        this.userLikes = new HashMap<>();
-        this.comments = new ArrayList<>(); // Initialize the comments list
+        this.comments = new ArrayList<>();
     }
 
     // Copy constructor
     public video(video original) {
-        this.id = original.id; // Add this line
+        this.id = original.id;
         this.title = original.title;
         this.description = original.description;
         this.thumbnailUrl = original.thumbnailUrl;
         this.thumbnailResId = original.thumbnailResId;
         this.videoUrl = original.videoUrl;
-        this.channelName = original.channelName;
+        this.user = original.user;
         this.likeCount = original.likeCount;
         this.viewCount = original.viewCount;
-        this.comments = new ArrayList<>(original.comments); // Copy the comments list
+        this.comments = new ArrayList<>(original.comments);
     }
 
     // Getters and setters
 
-    public String getId() { // Add this method
+    public String getId() {
         return id;
     }
 
-    public void setId(String id) { // Add this method
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -103,12 +97,12 @@ public class video implements Serializable {
         this.videoUrl = videoUrl;
     }
 
-    public String getChannelName() {
-        return channelName;
+    public user getUser() { // Add this method
+        return user;
     }
 
-    public void setChannelName(String channelName) {
-        this.channelName = channelName;
+    public void setUser(user user) { // Add this method
+        this.user = user;
     }
 
     public int getViewCount() {
@@ -168,13 +162,13 @@ public class video implements Serializable {
     @Override
     public String toString() {
         return "video{" +
-                "id='" + id + '\'' + // Add this line
+                "id='" + id + '\'' +
                 "title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", thumbnailUrl='" + thumbnailUrl + '\'' +
                 ", thumbnailResId=" + thumbnailResId +
                 ", videoUrl='" + videoUrl + '\'' +
-                ", channelName='" + channelName + '\'' +
+                ", user=" + user + // Add this line
                 ", viewCount=" + viewCount +
                 ", likeCount=" + likeCount +
                 ", userLikes=" + userLikes +
