@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +27,7 @@ public class login extends BaseActivity {
 
         // Button for logging in
         Button btnLogin = findViewById(R.id.login);
+        btnLogin.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.custom_red)));
         btnLogin.setOnClickListener(v -> {
             // Get the entered username and password
             EditText editTextUsername = findViewById(R.id.editTextUsername);

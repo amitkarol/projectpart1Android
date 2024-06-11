@@ -106,6 +106,7 @@
         android:text="Save"
         android:padding="12dp"
         android:textSize="16sp"
+        style="@style/RedButton"
         android:background="@color/custom_red"
         android:textColor="@android:color/white"
         android:layout_gravity="center"/>

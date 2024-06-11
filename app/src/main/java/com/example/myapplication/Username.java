@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.widget.Button;
@@ -22,6 +23,8 @@ public class Username extends BaseActivity {
         usernameEditText = findViewById(R.id.editTextText2);
 
         Button secbtnName = findViewById(R.id.second_button);
+        secbtnName.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.custom_red)));
+
         secbtnName.setOnClickListener(v -> {
             String username = usernameEditText.getText().toString().trim();
             usermanager = UserManager.getInstance();

@@ -1,6 +1,5 @@
 package com.example.myapplication;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -19,6 +18,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -31,7 +31,7 @@ import java.util.List;
 
 import adapter.VideoListAdapter;
 
-public class homescreen extends Activity {
+public class homescreen extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private VideoListAdapter videoAdapter;
@@ -117,6 +117,22 @@ public class homescreen extends Activity {
         // Initialize UI elements for manual theme change
         homeScreenLayout = findViewById(R.id.homeScreenLayout);
 
+        // Initialize SearchView
+        searchView = findViewById(R.id.searchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filterVideos(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterVideos(newText);
+                return true;
+            }
+        });
+
         // Read saved preferences for theme
         SharedPreferences preferences = getSharedPreferences("theme_prefs", MODE_PRIVATE);
         boolean isNightMode = preferences.getBoolean("night_mode", false);
@@ -133,22 +149,6 @@ public class homescreen extends Activity {
 
             // Apply the theme dynamically
             applyTheme(isChecked);
-        });
-
-        // Initialize SearchView
-        searchView = findViewById(R.id.searchView);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                filterVideos(query);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                filterVideos(newText);
-                return true;
-            }
         });
     }
 
@@ -179,6 +179,9 @@ public class homescreen extends Activity {
     private void applyTheme(boolean isNightMode) {
         int backgroundColor;
         int textColor;
+        int searchTextColor = getResources().getColor(R.color.black); // Always black
+        int searchHintColor = getResources().getColor(R.color.black); // Always black
+        int searchBackgroundColor = getResources().getColor(R.color.white); // Always white
 
         if (isNightMode) {
             backgroundColor = getResources().getColor(R.color.darkBackground);
@@ -196,6 +199,26 @@ public class homescreen extends Activity {
         // Notify the adapter to refresh the theme
         if (videoAdapter != null) {
             videoAdapter.refreshTheme();
+        }
+
+        // Update SearchView colors
+        updateSearchViewColors(searchView, searchTextColor, searchHintColor, searchBackgroundColor);
+    }
+
+    private void updateSearchViewColors(SearchView searchView, int textColor, int hintColor, int backgroundColor) {
+        int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        TextView searchText = searchView.findViewById(id);
+        if (searchText != null) {
+            searchText.setTextColor(textColor);
+            searchText.setHintTextColor(hintColor);
+        }
+        View searchPlate = searchView.findViewById(androidx.appcompat.R.id.search_plate);
+        if (searchPlate != null) {
+            searchPlate.setBackgroundColor(backgroundColor);
+        }
+        View submitArea = searchView.findViewById(androidx.appcompat.R.id.submit_area);
+        if (submitArea != null) {
+            submitArea.setBackgroundColor(backgroundColor);
         }
     }
 
@@ -225,5 +248,6 @@ public class homescreen extends Activity {
     @Override
     public void onBackPressed() {
         // Do nothing to prevent the user from navigating back
+        super.onBackPressed();
     }
 }

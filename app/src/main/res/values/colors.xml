@@ -15,4 +15,10 @@
     <color name="constant_white">#FFFFFF</color>
     <color name="plus_default_color">#000000</color>
     <color name="button_red">#FF0000</color>
+    <color name="search_text_color_day">#000000</color> <!-- Black for day mode -->
+    <color name="search_text_color_night">#FFFFFF</color> <!-- White for night mode -->
+    <color name="search_hint_color_day">#888888</color> <!-- Gray for day mode -->
+    <color name="search_hint_color_night">#CCCCCC</color>
+    <color name="search_background_day">#FFFFFF</color> <!-- White background for day mode -->
+    <color name="search_background_night">#333333</color>
 </resources>

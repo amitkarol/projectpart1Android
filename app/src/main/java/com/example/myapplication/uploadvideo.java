@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -36,12 +37,14 @@ public class uploadvideo extends BaseActivity {
         });
 
         Button uploadButton = findViewById(R.id.uploadVideoButton);
+        uploadButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.custom_red)));
         uploadButton.setOnClickListener(v -> openGallery());
 
         videoView = findViewById(R.id.videoView);
         videoView.setZOrderOnTop(true);
 
         Button continueButton = findViewById(R.id.continueButton);
+        continueButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.custom_red)));
         continueButton.setOnClickListener(v -> {
             if (selectedVideoUri != null) {
                 Log.d("UploadVideo", "Continue button clicked, videoUri: " + selectedVideoUri);

@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -18,6 +19,8 @@ public class password extends BaseActivity {
         setContentView(R.layout.password);
 
         Button thirdbtn = findViewById(R.id.thirdButton);
+        thirdbtn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.custom_red)));
+
         thirdbtn.setOnClickListener(v -> {
             Intent intent = new Intent(this, Displayname.class);
             startActivity(intent);

@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,6 +34,8 @@ public class Displayname extends BaseActivity {
         displaynameEdittext = findViewById(R.id.editTextText2);
 
         Button continueButton = findViewById(R.id.button3);
+        continueButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.custom_red)));
+
         continueButton.setOnClickListener(v -> {
             String displayname = displaynameEdittext.getText().toString().trim();
 
@@ -62,12 +65,16 @@ public class Displayname extends BaseActivity {
         });
 
         Button buttonUploadPhoto = findViewById(R.id.buttonUploadPhoto);
+        buttonUploadPhoto.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.custom_red)));
+
         buttonUploadPhoto.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(intent, REQUEST_IMAGE_PICK);
         });
 
         Button buttonTakePhoto = findViewById(R.id.buttonTakePhoto);
+        buttonTakePhoto.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.custom_red)));
+
         buttonTakePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

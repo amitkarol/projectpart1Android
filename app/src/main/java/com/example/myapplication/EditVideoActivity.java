@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -36,6 +37,7 @@ public class EditVideoActivity extends BaseActivity {
         descriptionEditText = findViewById(R.id.descriptionEditText);
         thumbnailImageView = findViewById(R.id.thumbnailImageView);
         Button saveButton = findViewById(R.id.saveButton);
+        saveButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.custom_red)));
         Button deleteButton = findViewById(R.id.deleteButton);
         Button pickThumbnailButton = findViewById(R.id.pickThumbnailButton);
 

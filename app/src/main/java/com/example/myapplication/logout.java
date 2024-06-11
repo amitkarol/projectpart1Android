@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
@@ -44,6 +45,8 @@ public class logout extends BaseActivity {
 
         // Get reference to the Logout button
         Button logoutButton = findViewById(R.id.buttonLogout);
+        logoutButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.custom_red)));
+
         user testUser = new user("Test", "User", "testuser@example.com", "Password@123", "TestUser", person.toString());
 
         // Set an OnClickListener to the Logout button

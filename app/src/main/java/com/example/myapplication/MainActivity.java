@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,8 @@ public class MainActivity extends BaseActivity {
         lastNameEditText = findViewById(R.id.editTextText2);
 
         Button btnName = findViewById(R.id.first_reg_button);
+        btnName.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.custom_red)));
+
         btnName.setOnClickListener(v -> {
             String firstName = firstNameEditText.getText().toString().trim();
             String lastName = lastNameEditText.getText().toString().trim();

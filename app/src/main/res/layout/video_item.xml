@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:scaleType="centerCrop"
-        android:background="@android:color/white"
+        android:background="@null"
         android:src="@drawable/placeholder_thumbnail" />
 
     <LinearLayout
@@ -24,8 +24,8 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/userPhotoImageView"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="38dp"
+            android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@drawable/person"
             app:shapeAppearanceOverlay="@style/CircularImageView" />

@@ -77,8 +77,9 @@
 
     <Button
         android:id="@+id/first_reg_button"
-        android:layout_width="152dp"
-        android:layout_height="53dp"
+        style="@style/RedButton"
+        android:layout_width="156dp"
+        android:layout_height="69dp"
         android:layout_marginTop="80dp"
         android:background="@color/custom_red"
         android:padding="16dp"
