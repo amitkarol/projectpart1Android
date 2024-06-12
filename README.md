@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # projectpart1Android
 =======
 Youtube
