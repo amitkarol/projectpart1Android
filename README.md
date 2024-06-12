@@ -10,22 +10,32 @@ Youtube
  
 8.	The Project will start loading and a few notifications will pop up, press “Automatically” under microosft defender notification.
     ![Step 3](guide/3.png)
-9.	Press “Add Configuration” and “edit Confiduration”
+  	
+10.	Press “Add Configuration” and “edit Confiduration”
        ![Step 4](guide/4.png)
-11.	A windows will open, press “Add new run configuration”
+   	
+12.	A windows will open, press “Add new run configuration”
        ![Step 5](guide/5.png)
-13.	Choose “Android App”
-       ![Step 6](guide/6.png) 
-15.	Under “Module” choose “My_Application.app.main”
+   	
+14.	Choose “Android App”
+       ![Step 6](guide/6.png)
+   	
+16.	Under “Module” choose “My_Application.app.main”
        ![Step 7](guide/7.png)
-17.	Under “Lunch option” change to “Specified Activity”
+   	
+18.	Under “Lunch option” change to “Specified Activity”
        ![Step 8](guide/8.png)
-19.	Press on the “Search”
+   	
+20.	Press on the “Search”
        ![Step 9](guide/9.png)
+   	
 and choose the option “Homescreen” and press ok and ok again.
     ![Step 10](guide/10.png)
-21.	Try and run the project
+    
+22.	Try and run the project
        ![Step 2](guide/2.png)
+   	
 A massege like that might pop up
    ![Step 11](guide/11.png)
+   
 press “Sync Project” and try to run again, the app will be installed on your device and run.
