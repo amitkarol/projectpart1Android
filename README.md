@@ -3,19 +3,29 @@ Youtube
 2.	Download and open android studio
 3.	Press “Open” to open the project 
 4.	Choose the project’s folder (make sure you see an android icon) .
+     ![Step 1](guide/1.png)
  
-5.	Run the project (if it this button doesn’t appear continue reading the guide)
+6.	Run the project (if it this button doesn’t appear continue reading the guide)
+      ![Step 2](guide/2.png)
  
-6.	The Project will start loading and a few notifications will pop up, press “Automatically” under microosft defender notification.
- 
-7.	Press “Add Configuration” and “edit Confiduration”  
-8.	A windows will open, press “Add new run configuration”  
-9.	Choose “Android App”  
-10.	Under “Module” choose “My_Application.app.main”  
-11.	Under “Lunch option” change to “Specified Activity” 
-12.	Press on the “Search”  
+8.	The Project will start loading and a few notifications will pop up, press “Automatically” under microosft defender notification.
+    ![Step 3](guide/3.png)
+9.	Press “Add Configuration” and “edit Confiduration”
+       ![Step 4](guide/4.png)
+11.	A windows will open, press “Add new run configuration”
+       ![Step 5](guide/5.png)
+13.	Choose “Android App”
+       ![Step 6](guide/6.png) 
+15.	Under “Module” choose “My_Application.app.main”
+       ![Step 7](guide/7.png)
+17.	Under “Lunch option” change to “Specified Activity”
+       ![Step 8](guide/8.png)
+19.	Press on the “Search”
+       ![Step 9](guide/9.png)
 and choose the option “Homescreen” and press ok and ok again.
- 
-13.	Try and run the project 
-A massege like that might pop up  
+    ![Step 10](guide/10.png)
+21.	Try and run the project
+       ![Step 2](guide/2.png)
+A massege like that might pop up
+   ![Step 11](guide/11.png)
 press “Sync Project” and try to run again, the app will be installed on your device and run.
