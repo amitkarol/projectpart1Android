@@ -1,4 +1,5 @@
 Youtube
+# RUN THE PROJECT 
 1.	Download Zip file and Exctract (project-master.zip) , when extracting using windows ZIP extraction option it will create a folder within a folder pay attention to open the app's folder and not the occupying folder
 2.	Download and open android studio
 3.	Press “Open” to open the project 
