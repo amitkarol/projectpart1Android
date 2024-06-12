@@ -11,7 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Edit your comment"
-        android:inputType="text" />
+        android:inputType="text"
+        android:textSize="18sp"
+        android:padding="12dp" />
 
     <Button
         android:id="@+id/saveButton"
